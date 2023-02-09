@@ -1,6 +1,123 @@
 <html>
-<head></head>
+<head>
+<meta charset="UTF-8">
+<style>
+button{
+	font-size: 20px;
+ 	width: 100px;
+	height: 60px;
+	border-radius: 5px;
+}
+
+#output{
+	font-size: 3.0em;
+	margin-left: 40px;
+}
+
+#startPause{
+	background-color: green;
+	border-color: green;
+}
+
+#reset1228{
+	background-color: blue;
+	border-color: blue;
+            color: white;
+}
+
+.containerMrs{
+	background-color: lightgray;
+	border-radius: 5px;
+	margin: auto;
+	margin-top: 30px
+	margin-bottom: 20px
+	width: 400px;
+	height: 200px;
+}
+
+$controls{
+	margin-left: 50px;
+	margin-top: 10px;
+	width: 310px;
+	height: 70px;
+}
+
+
+
+#start{
+	color: white;
+}
+
+</style>
+
+
+<script>
+var time=0;
+var running=0;
+function startPause(){
+ if(running == 0){
+   running = 1;
+   document.getElementById("start").innerHTML = "일시중지";
+   document.getElementById("startPause").style.backgroundColor = "red";
+   document.getElementById("startPause").style.borderColor = "red";
+   increment();
+
+ }
+ else{
+   running = 0;
+   document.getElementById("start").innerHTML = "계속";
+   document.getElementById("startPause").style.backgroundColor = "green";
+   document.getElementById("startPause").style.borderColor = "green";
+ }
+}
+
+function reset1228(){
+   running = 0;
+   time = 0;
+   document.getElementById("start").innerHTML = "시작";
+   document.getElementById("output").innerHTML = "<b>0:00:00:00</b>";
+   document.getElementById("startPause").style.backgroundColor = "green";
+   document.getElementById("startPause").style.borderColor = "green";
+}
+
+function increment(){
+   if(running == 1){
+     setTimeout(function(){
+	time++;
+	var mins = Math.floor(time/10/60);
+	var secs = Math.floor(time/10 % 60);
+	var hours = Math.floor(time/10/60/60);
+	var tenths = time % 10;
+	if(mins < 10){
+	  mins = "0" + mins;
+	}
+	if(secs < 10){
+	  secs = "0" + secs;
+	}
+	  document.getElementById("output").innerHTML = "<b>"+hours + ":" + mins + ":" + secs + ":" + tenths + "0</b>";
+	increment();
+     },100)
+  }
+}
+
+</script>
+</head>
+
 <body>
-test
+<div class="containerMrs" align="center"><br>
+
+<!--
+<div class="containerMrs" ><br>
+-->
+
+<p id="output"><b>0:00:00:00</b></p> 
+<br>
+<div id="controls" >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button id="startPause" onclick="startPause()"><b id="start">시작</b></button>
+<button onclick="reset1228()" id="reset1228"><b id="reset1228">리셋</b></button>
+</div>
+</div>
+<br>
 </body>
 </html>
