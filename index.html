@@ -317,6 +317,11 @@ dayStr = today.toLocaleString();
 document.write("<b>날짜 : ");
 document.write(dayStr);
 document.write("</b>");
+var weekaday = ['일','월','화','수','목','금','토'] ;
+var week = weekaday[today.getDay()];
+document.write("<b>날짜 : ");
+document.write(year+"년 "+month+"월 "+day+"일 "+week+"요일 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [인터넷 세상 개인정보를 보호해요]");
+document.write("</b>");
 //-->
   
 //날짜끝
