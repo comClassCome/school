@@ -24,7 +24,7 @@ function op(num)
 
  var cnum = document.getElementById("c"+ num ).value;
  
- if (cnum.trim() == "개인정보") 
+ if (cnum.trim() == "저작권") 
  { 
   var i;
   for(i=7;i<=9;i++){document.getElementById("div"+i).style.display = "block";}
@@ -46,7 +46,7 @@ function op(num)
 <br>
 
 <div id=div6>
-<b><font size=5>&nbsp;* 이름, 전화번호, 주소처럼 정보가 가리키는 사람이 누구인지 알 수 있는 것은 무엇일까요?<br>
+<b><font size=5>&nbsp;문제 : 작품을 만든이가 자신이 만든 작품에 대해 갖는 권리는 무엇일까요?<br>
 &nbsp;&nbsp;&nbsp;알맞은 답을 빈칸에 쓰고 정답확인 버튼을 클릭하면 비밀게임들이 나타납니다.<br><br>
 &nbsp;<input type="text" style="font-size:50px;" id="c6" onkeydown="javascript_:if(event.keyCode==13) {op(6);}"></font>
 
