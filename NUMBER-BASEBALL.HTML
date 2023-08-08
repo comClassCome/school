@@ -54,7 +54,7 @@
       return;
     }
     if (tries.length >= 9) {
-      const message = document.createTextNode(`패배! 정답은 ${answer.join('')}`);
+      const message = document.createTextNode(`패배! 정답은 ${answer.join('')}, 새로시작 버튼을 눌러서 다시 시작해주세요`);
       $logs.appendChild(message);
       return;
     }
