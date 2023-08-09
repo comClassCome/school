@@ -1,0 +1,104 @@
+
+<html>
+<head>
+<script type="text/javascript">
+
+var alert1 = "잘했어요~ 정답입니다~ ^.^";  
+var alert2 = "다시 풀어 보세요 >_<;";
+
+//날짜
+var today = new Date()
+dayStr = today.toLocaleString();
+const year = today.getFullYear();
+const month = String(today.getMonth() + 1).padStart(2, "0");
+const day = String(today.getDate()).padStart(2, "0");
+var weekaday = ['일','월','화','수','목','금','토'] ;
+var week = weekaday[today.getDay()];
+document.write("<b>날짜 : ");
+document.write(year+"년 "+month+"월 "+day+"일 "+week+"요일 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [인터넷 세상 고운 마음 배려하며 말해요]");
+document.write("</b>");
+//날짜끝
+
+
+//계산시작
+function op(num)
+{
+
+ var cnum = document.getElementById("c"+ num ).value;
+ if(num == 6)
+ {
+ 	if (cnum.trim() == "저작권") 
+ 	{ 
+  	var i;
+  	for(i=7;i<=9;i++){document.getElementById("div"+i).style.display = "block";}
+ 	}
+ 	else
+ 	{alert(alert2);}
+  }
+  if(num == 10)
+  {
+	if(cnum.trim() == "개인정보")
+  	{document.getElementById("div6").style.display = "block";}
+ 	else
+ 	{alert(alert2);}
+  }	
+}
+//계산끝
+</script>
+</head>
+
+<body onload="document.getElementById('c6').focus()">
+<br>
+<center>
+<hr color="yellow"> 
+<table width=70% height=15% bgcolor="f9e5d7">
+<tr>
+<td valign = "top">
+<br>
+
+
+<div id=div10>
+<b><font size=5>&nbsp;* 문제 : 이름, 전화번호, 주소처럼 정보가 가리키는 사람이 누구인지 알 수 있는 것은 무엇일까요?</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=5 color=blue>(알맞은 답을 빈칸에 쓰고 정답확인 버튼을 클릭하면 다음문제가 나타납니다.)</font><br><br>
+&nbsp;<input type="text" style="font-size:50px;" id="c10" onkeydown="javascript_:if(event.keyCode==13) {op(10);}"></font>
+
+<input type="button" style="font-size:50px;" value="정답확인" onclick="javascript_:op(10);"><p>
+</div>
+
+<br>
+
+<div id=div6 style = "display:none;">
+<b><font size=5>&nbsp;* 문제 : 작품을 만든이가 자신이 만든 작품에 대해 갖는 권리는 무엇일까요?</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=5 color=blue>(알맞은 답을 빈칸에 쓰고 정답확인 버튼을 클릭하면 비밀두뇌게임들이 나타납니다.)</font><br><br>
+&nbsp;<input type="text" style="font-size:50px;" id="c6" onkeydown="javascript_:if(event.keyCode==13) {op(6);}"></font>
+
+<input type="button" style="font-size:50px;" value="정답확인" onclick="javascript_:op(6);"><p>
+</div>
+
+<br>
+<div id=div7 style = "display:none;">
+짝맞추기
+<iframe src="https://comclasscome.github.io/test/CONCENTRATION.HTML" width="100%" height="150px"></iframe>      
+</div>
+
+<div id=div8 style = "display:none;">
+지뢰찾기
+<iframe src="https://comclasscome.github.io/test/MINE-SWEEPER.HTML" width="100%" height="300px"></iframe>      
+</div>
+
+<div id=div9 style = "display:none;">
+숫자야구(4자리)
+<table width="100%">
+<tr width="100%">
+<td width="50%">
+<iframe src="https://comclasscome.github.io/test/NUMBER-BASEBALL.HTML" width="100%" height="300px"></iframe> 
+</td>
+<td width="50%">
+<textarea style="width:100%; height:300px;"></textarea>
+</td>
+</tr>
+</div>
+
+
+</body>
+</html>
