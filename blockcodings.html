@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>블록코딩</title>
+
+
+
+  <style>
+#container {
+  width:1000px;
+  margin:20px auto;
+}
+h1 {
+  text-align:center;
+}
+.prod-list {
+  list-style:none;
+  padding:0;
+}
+.prod-list li {
+  float: left;
+  padding: 0;
+  margin: 10px;
+  overflow: hidden;
+  position: relative;
+}
+.prod-list img {
+  margin:0;
+  padding:0;
+  float:left;
+  z-index:5;
+} 
+.prod-list .caption {
+  position: absolute;
+  top:200px;  /* 기준 위치보다 200px 아래로 */
+  width:300px;
+  height:200px;
+  padding-top:20px;
+  background:rgba(0,0,0,0.6);  /* 반투명한 검정 배경 */ 
+  opacity:0;  /* 화면에 보이지 않게 */ 
+  transition: all 0.6s ease-in-out;  /* 나타날 때 부드럽게 트랜지션 추가 */
+  z-index:10;  /* 다른 요소보다 위에 있도록 */ 
+}
+.prod-list li:hover .caption {
+  opacity: 1;  /* 설명글이 화면에 보이게 */ 
+  transform: translateY(-200px);  /* 설명글이 위로 200px 이동하게 */
+}  
+.prod-list .caption h2, .prod-list .caption p {
+  color: #fff;
+  text-align: center;
+}      
+  </style>
+
+
+
+</head>
+<body>
+<br><br><br><br><br>
+	<div id="container">
+    <h1>블록코딩 모음</h1><br>
+		<ul class="prod-list">
+      <li>
+        <a href="https://blockly.games/?lang=ko" target="_blank"><img src="images/prod1.jpg"></a>
+        <a href="https://blockly.games/?lang=ko"><div class="caption">
+          <h2>블록리</h2>
+
+        </div></a>
+      </li>
+      <li>
+        <a href="https://playentry.org/legacy_maze#!/2020-1/1" target="_blank"><img src="images/prod2.jpg"></a>
+        <a href="https://playentry.org/legacy_maze#!/2020-1/1" target="_blank"><div class="caption">
+          <h2>엔트리</h2>
+
+        </div></a>
+      </li>
+      <li>
+        <a href="https://www.ebssw.kr/coding-party/list" target="_blank"><img src="images/prod3.jpg"></a>
+        <a href="https://www.ebssw.kr/coding-party/list" target="_blank"><div class="caption">
+          <h2>뚜앙</h2>
+
+        </div></a>
+      </li>
+    </ul>
+	</div>
+</body>
+</html>
