@@ -1,0 +1,50 @@
+<!doctype html>
+<html dir="ltr" lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>비밀문서</title>
+<script>
+
+function op()
+{
+ 
+ if(document.getElementById("pw").value == "코드")
+	{
+ 		document.getElementById("div1").style.display = "block";
+	}
+ else
+	{
+		alert("암호가 틀렸습니다. 암호를 다시 입력해 주세요");
+		document.getElementById("pw").value = ""
+	}
+}
+
+</script>
+<style>
+input[type="text"]{
+width: 200px;
+height: ;
+//border: 1px;
+font-size: 50px;
+}
+
+input[type="button"]{
+font-size: 30px;
+}
+</style>
+  </head>
+  <body>
+<center>
+<br><br><br><br><br><br><br>
+<font size=10><pre><b>^                           ^</b></pre></font>
+<table width=800 border=1 bgcolor=f8e7f0><tr><td><center>
+<font size = 20 color=green>암호를 입력하세요 : <input type="text"  id="pw" autofocus onkeydown="javascript_:if(event.keyCode==13) {op();}">&nbsp;<input type="button" value="확인" onclick="javascript_:op();">
+</td></tr></table><br><br><br><br><br><br><br><br><br><br>
+<div id=div1 style = "display:none;">
+<a href ="https://comclasscome.github.io/test/passdoc.html"><mark><font size=10 color=blue>입장하기
+</font></mark></a>
+&nbsp;<marquee behavior="alternate" width="100"><font color=red><b><-&nbsp;클릭</font></marquee>
+</div>
+
+  </body>
+</html>
