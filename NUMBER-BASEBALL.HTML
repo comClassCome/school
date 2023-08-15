@@ -6,8 +6,15 @@
 </head>
 <body>
 <form id="form">
+
+	<table><tr><td>
   <input type="text" id="input">
-  <button>확인</button>&nbsp;<input type="button" onclick="location.reload()" value="새로시작"></input>
+	</td><td>
+  <button id="cirm" style="display:block;">확인</button>
+	</td><td>
+  &nbsp;<input type="button" onclick="location.reload()" value="새로시작"></input>
+	</td></tr><table>
+
 </form>
 <div id="logs"></div>
 <script>
@@ -50,10 +57,12 @@
     }
     // 입력값 문제없음
     if (answer.join('') === value) { // [3, 1, 4, 6] -> '3146'
-      $logs.textContent = '홈런!';
+      document.getElementById("cirm").style.display = "none";
+      $logs.textContent = '홈런! 새로시작 버튼을 눌러서 다시 시작해주세요';
       return;
     }
     if (tries.length >= 9) {
+      document.getElementById("cirm").style.display = "none";
       const message = document.createTextNode(`패배! 정답은 ${answer.join('')}, 새로시작 버튼을 눌러서 다시 시작해주세요`);
       $logs.appendChild(message);
       return;
