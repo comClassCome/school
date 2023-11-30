@@ -1,0 +1,308 @@
+
+
+
+<html>
+<head>
+
+
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+
+
+<script type="text/javascript">
+
+var alert1 = "정답입니다~ ^.^";  
+var alert2 = "빈칸에 올바른 답을 입력하세요 >_<;";
+
+//날짜
+var today = new Date()
+dayStr = today.toLocaleString();
+const year = today.getFullYear();
+const month = String(today.getMonth() + 1).padStart(2, "0");
+const day = String(today.getDate()).padStart(2, "0");
+var weekaday = ['일','월','화','수','목','금','토'] ;
+var week = weekaday[today.getDay()];
+document.write("<img src='snow.gif' width='250' height='150'>");
+document.write("<right><br><b>&nbsp;날짜 : ");
+document.write(year+"년 "+month+"월 "+day+"일 "+week+"요일 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [정보]");
+
+document.write("</b>");
+//날짜끝
+
+
+//계산시작
+function op(num)
+{
+ var cnum = document.getElementById("c"+ num ).value;
+ switch (num) {
+	case 1 :
+		if(cnum.trim() == "정보기술")
+  		{document.getElementById("div2").style.display = "block"; document.getElementById("c"+(num+1)).focus();}
+ 		else
+ 		{alert(alert2);}
+		break;
+	case 2 :
+		if(cnum.trim() == "증강현실")
+  		{document.getElementById("div3").style.display = "block"; document.getElementById("c"+(num+1)).focus();}
+ 		else
+ 		{alert(alert2);}
+		break;
+	case 3 :
+		if(cnum.trim() == "사물인터넷")
+  		{document.getElementById("div4").style.display = "block"; document.getElementById("c"+(num+1)).focus();}
+ 		else
+ 		{alert(alert2);}
+		break;		
+	case 4 :
+		if(cnum.trim() == "인공지능")
+  		{document.getElementById("div5").style.display = "block"; document.getElementById("c"+(num+1)).focus();}
+ 		else
+ 		{alert(alert2);}
+		break;	
+	default:
+    		alert("이 코드는 실행되지 않습니다.");
+	}
+
+}
+//계산끝
+
+//hint 시작
+function hint(fir, sec)
+{
+	switch (fir) {
+	case 1 :
+		switch (sec) {
+		case 1 :
+			document.getElementById("dif1").style.display = "block";
+			document.getElementById("btndif2").style.display = "block";
+		break;
+		case 2 :
+			document.getElementById("dif2").style.display = "block";
+			document.getElementById("btndif3").style.display = "block";
+		break;
+		case 3 :
+			document.getElementById("dif3").style.display = "block";
+		break;		
+		}
+
+		break;
+	case 2 :
+		switch (sec) {
+		case 1 :
+			document.getElementById("re1").style.display = "block";
+			document.getElementById("btnre2").style.display = "block";
+		break;
+		case 2 :
+			document.getElementById("re2").style.display = "block";
+			document.getElementById("btnre3").style.display = "block";
+		break;
+		case 3 :
+			document.getElementById("re3").style.display = "block";
+		break;		
+		}
+
+		break;
+	case 3 :
+		switch (sec) {
+		case 1 :
+			document.getElementById("af1").style.display = "block";
+			document.getElementById("btnaf2").style.display = "block";
+		break;
+		case 2 :
+			document.getElementById("af2").style.display = "block";
+			document.getElementById("btnaf3").style.display = "block";
+		break;
+		case 3 :
+			document.getElementById("af3").style.display = "block";
+		break;		
+		}
+
+		break;		
+	case 4 :
+		switch (sec) {
+		case 1 :
+			document.getElementById("tea1").style.display = "block";
+			document.getElementById("btntea2").style.display = "block";
+		break;
+		case 2 :
+			document.getElementById("tea2").style.display = "block";
+			document.getElementById("btntea3").style.display = "block";
+		break;
+		case 3 :
+			document.getElementById("tea3").style.display = "block";
+		break;		
+		}
+
+		break;
+	default:
+    		alert("이 코드는 실행되지 않습니다.");
+	}
+}
+//hint 끝
+
+</script>
+</head>
+
+<body onload="document.getElementById('c1').focus()">
+
+<br>
+
+<center>
+<hr color="yellow"> 
+
+<table width=70% height=15% bgcolor="fbbe7a">
+<tr>
+<td valign = "bottom">
+<br>
+<b><font size=5>&nbsp;* 빈칸에 알맞는 답을 입력하세요.
+<!-- </font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=blue>(2개의 정답을 모두 맞히면 코딩파티 홈페이지에 입장할 수 있습니다.)</font> -->
+</b>
+<br><br>
+
+
+<div id=div1 class="shadow p-3 mb-5 bg-body-tertiary rounded">
+<br>
+<b><font size=5>&nbsp;1. 컴퓨팅 시스템과 네트워크를 이용하여 정보를 처리하고 새로운 가치를 만들기 위해 사용하는 모든 것을 <input type="text" style="width:200px;font-size:50px;" id="c1" onkeydown="javascript_:if(event.keyCode==13) {op(1);}">이라고 합니다.</font>
+&nbsp;<input type="button" class="btn btn-warning" style="font-size:20px;" value="정답확인" onclick="javascript_:op(1);">
+<br><br><br>
+
+<table >
+<tr>
+<td style="width:150px;" align="right">
+<input type="button" id="btndif1" class="btn btn-info" style="font-size:15px;" value="1단계 글자 수 힌트" onclick="javascript_:hint(1,1);">
+</td>
+<td style="width:150px;">
+<label id="dif1" style = "display:none;">&nbsp;4 글자</label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btndif2" class="btn btn-info" style="display:none;font-size:15px;" value="2단계 초성 힌트" onclick="javascript_:hint(1,2);">
+</td>
+<td style="width:150px;">
+<label id="dif2" style = "display:none;">&nbsp;ㅈㅂㄱㅅ </label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btndif3" class="btn btn-info" style="display:none;font-size:15px;" value="3단계 문장 힌트" onclick="javascript_:hint(1,3);">
+</td>
+<td style="width:500px;">
+<label id="dif3" style = "display:none;">&nbsp;컴퓨팅 시스템과 네트워크를 이용하여 정보를 처리하고 새로운 가치를 만들기 위해 사용하는 모든 것을 정보 기술이라고 한다.</label>
+</td>
+</tr></table>
+</div>
+
+<br>
+
+<div id=div2 style = "display:none;" class="shadow p-3 mb-5 bg-body-tertiary rounded">
+<br>
+<b><font size=5>&nbsp;2. 눈에 보이는 현실 
+세계에 실시간 데이터가 포함된 가상 세계를 겹쳐 보여 주는 기술은 <input type="text" style="width:200px;font-size:50px;" id="c2" onkeydown="javascript_:if(event.keyCode==13) {op(2);}"> 입니다. </font>&nbsp;<input type="button" class="btn btn-warning" style="font-size:20px;" value="정답확인" onclick="javascript_:op(2);"><br><br><br>
+
+<table><tr>
+<td style="width:150px;" align="right">
+<input type="button" id="btnre1" class="btn btn-info" style="font-size:15px;" value="1단계 글자 수 힌트" onclick="javascript_:hint(2,1);">
+</td>
+<td style="width:150px;">
+<label id="re1" style = "display:none;">&nbsp;4 글자</label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btnre2" class="btn btn-info" style="display:none;font-size:15px;" value="2단계 초성 힌트" onclick="javascript_:hint(2,2);">
+</td>
+<td style="width:150px;">
+<label id="re2" style = "display:none;">&nbsp;ㅈㄱㅎㅅ </label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btnre3" class="btn btn-info" style="display:none;font-size:15px;" value="3단계 문장 힌트" onclick="javascript_:hint(2,3);">
+</td>
+<td style="width:500px;">
+<label id="re3" style = "display:none;">&nbsp; 증강현실은 눈에 보이는 현실 세계에 실시간 데이터가 포함된 가상 세계를 겹쳐 보여 주는 기술입니다.  </label>
+</td>
+</tr></table>
+</div>
+
+<br>
+
+<div id=div3 style = "display:none;" class="shadow p-3 mb-5 bg-body-tertiary rounded">
+<br>
+<b><font size=5>&nbsp;3. <input type="text" style="width:250px;font-size:50px;" id="c3" onkeydown="javascript_:if(event.keyCode==13) {op(3);}">은 모든 사물이 서로 데이터를 주고받으며 작동하는 기술입니다.</font>
+&nbsp;<input type="button" class="btn btn-warning" style="font-size:20px;" value="정답확인" onclick="javascript_:op(3);"><br><br><br>
+
+<table><tr>
+<td style="width:150px;" align="right">
+<input type="button" id="btnaf1" class="btn btn-info" style="font-size:15px;" value="1단계 글자 수 힌트" onclick="javascript_:hint(3,1);">
+</td>
+<td style="width:150px;">
+<label id="af1" style = "display:none;">&nbsp;5 글자</label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btnaf2" class="btn btn-info" style="display:none;font-size:15px;" value="2단계 초성 힌트" onclick="javascript_:hint(3,2);">
+</td>
+<td style="width:150px;">
+<label id="af2" style = "display:none;">&nbsp;ㅅㅁㅇㅌㄴ </label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btnaf3" class="btn btn-info" style="display:none;font-size:15px;" value="3단계 문장 힌트" onclick="javascript_:hint(3,3);">
+</td>
+<td style="width:500px;">
+<label id="af3" style = "display:none;">&nbsp;사물인터넷은 인터넷으로 연결된 모든 사물이 서로 데이터를 주고받으며 작동하는 기술입니다. </label>
+</td>
+</tr></table>
+
+
+</div>
+
+<br>
+
+<div id=div4 style = "display:none;" class="shadow p-3 mb-5 bg-body-tertiary rounded">
+<br>
+<b><font size=5>&nbsp;4. <input type="text" style="width:200px;font-size:50px;" id="c4" onkeydown="javascript_:if(event.keyCode==13) {op(4);}">은 기계가 인간처럼 지
+능을 가지고 지각, 학습, 추론하며 음성과 영상을 이해하여 판단하고 행동할 수 있도록 하는 기술입니다.</font>&nbsp;<input type="button" class="btn btn-warning" style="font-size:20px;" value="정답확인" onclick="javascript_:op(4);"><br><br><br>
+
+<table><tr>
+<td style="width:150px;" align="right">
+<input type="button" id="btntea1" class="btn btn-info" style="font-size:15px;" value="1단계 글자 수 힌트" onclick="javascript_:hint(4,1);">
+</td>
+<td style="width:150px;">
+<label id="tea1" style = "display:none;">&nbsp;4 글자</label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btntea2" class="btn btn-info" style="display:none;font-size:15px;" value="2단계 초성 힌트" onclick="javascript_:hint(4,2);">
+</td>
+<td style="width:150px;">
+<label id="tea2" style = "display:none;">&nbsp;ㅇㄱㅈㄴ </label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btntea3" class="btn btn-info" style="display:none;font-size:15px;" value="3단계 문장 힌트" onclick="javascript_:hint(4,3);">
+</td>
+<td style="width:500px;">
+<label id="tea3" style = "display:none;">&nbsp;인공지능은 기계가 인간처럼 지능을 가지고 지각, 학습, 추론하며 음성과 영상을 이해하여 판단하고 행동할 수 있도록 하는 기술입니다.</label>
+</td>
+</tr></table>
+
+
+</div>
+
+
+
+
+<br>
+
+<div id=div5 style = "display:none;" class="shadow p-3 mb-5 bg-body-tertiary rounded">
+<br>
+<b><font size=5>&nbsp;5. 보너스 문제 - 나만의 수식으로 표현해보기</font>
+<br><pre><font size=3>     
+     예1) 3=1    : 우리집 식구는 3명인데 나는 언제나 혼자이다.
+     예2) 24+1=1 : 우리반은 1반인데 학생 24명과 담임선생님 1분으로 구성되어 있다.
+</pre>
+<br>
+<textarea id="c5" style="width:100%; height:300px;"></textarea>
+
+
+</div>
+
+
+
+
+
+
+</td></tr></table>
+</body>
+</html>
