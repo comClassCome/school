@@ -1,0 +1,224 @@
+
+
+
+<html>
+<head>
+
+
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+
+
+<script type="text/javascript">
+
+var alert1 = "정답입니다~ ^.^";  
+var alert2 = "빈칸에 올바른 답을 입력하세요 >_<;";
+
+//날짜
+var today = new Date()
+dayStr = today.toLocaleString();
+const year = today.getFullYear();
+const month = String(today.getMonth() + 1).padStart(2, "0");
+const day = String(today.getDate()).padStart(2, "0");
+var weekaday = ['일','월','화','수','목','금','토'] ;
+var week = weekaday[today.getDay()];
+document.write("<img src='snow.gif' width='250' height='150'>");
+document.write("<right><br><b>&nbsp;날짜 : ");
+document.write(year+"년 "+month+"월 "+day+"일 "+week+"요일 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [정보]");
+
+document.write("</b>");
+//날짜끝
+
+
+//계산시작
+function op(num)
+{
+ var cnum = document.getElementById("c"+ num ).value;
+ switch (num) {
+	case 1 :
+		if(cnum.trim() == "소프트웨어")
+  		{document.getElementById("div2").style.display = "block"; document.getElementById("c"+(num+1)).focus();}
+ 		else
+ 		{alert(alert2);}
+		break;
+	case 2 :
+		if(cnum.trim() == "홀로그램")
+  		{document.getElementById("div3").style.display = "block"; document.getElementById("c"+(num+1)).focus();}
+ 		else
+ 		{alert(alert2);}
+		break;	
+
+	default:
+    		alert("이 코드는 실행되지 않습니다.");
+	}
+
+}
+//계산끝
+
+//hint 시작
+function hint(fir, sec)
+{
+	switch (fir) {
+	case 1 :
+		switch (sec) {
+		case 1 :
+			document.getElementById("dif1").style.display = "block";
+			document.getElementById("btndif2").style.display = "block";
+		break;
+		case 2 :
+			document.getElementById("dif2").style.display = "block";
+			document.getElementById("btndif3").style.display = "block";
+		break;
+		case 3 :
+			document.getElementById("dif3").style.display = "block";
+		break;		
+		}
+
+		break;
+	case 2 :
+		switch (sec) {
+		case 1 :
+			document.getElementById("re1").style.display = "block";
+			document.getElementById("btnre2").style.display = "block";
+		break;
+		case 2 :
+			document.getElementById("re2").style.display = "block";
+			document.getElementById("btnre3").style.display = "block";
+		break;
+		case 3 :
+			document.getElementById("re3").style.display = "block";
+		break;		
+		}
+
+		break;
+	case 3 :
+		switch (sec) {
+		case 1 :
+			document.getElementById("af1").style.display = "block";
+			document.getElementById("btnaf2").style.display = "block";
+		break;
+		case 2 :
+			document.getElementById("af2").style.display = "block";
+			document.getElementById("btnaf3").style.display = "block";
+		break;
+		case 3 :
+			document.getElementById("af3").style.display = "block";
+		break;		
+		}
+
+		break;		
+	case 4 :
+		switch (sec) {
+		case 1 :
+			document.getElementById("tea1").style.display = "block";
+			document.getElementById("btntea2").style.display = "block";
+		break;
+		case 2 :
+			document.getElementById("tea2").style.display = "block";
+			document.getElementById("btntea3").style.display = "block";
+		break;
+		case 3 :
+			document.getElementById("tea3").style.display = "block";
+		break;		
+		}
+
+		break;
+	default:
+    		alert("이 코드는 실행되지 않습니다.");
+	}
+}
+//hint 끝
+
+</script>
+</head>
+
+<body onload="document.getElementById('c1').focus()">
+
+<br>
+
+<center>
+<hr color="yellow"> 
+
+<table width=70% height=15% bgcolor="fbbe7a">
+<tr>
+<td valign = "bottom">
+<br>
+<b><font size=5>&nbsp;* 빈칸에 알맞는 답을 입력하세요.
+<!-- </font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=blue>(2개의 정답을 모두 맞히면 코딩파티 홈페이지에 입장할 수 있습니다.)</font> -->
+</b>
+<br><br>
+
+
+<div id=div1 class="shadow p-3 mb-5 bg-body-tertiary rounded">
+<br>
+<b><font size=5>&nbsp;1. 자동차와 같은 하드웨어가 처리해야 할 일의 순서와 방법을 지시하는 프로그램을 <input type="text" style="width:250px;font-size:50px;" id="c1" onkeydown="javascript_:if(event.keyCode==13) {op(1);}">라고 합니다.</font>
+&nbsp;<input type="button" class="btn btn-warning" style="font-size:20px;" value="정답확인" onclick="javascript_:op(1);">
+<br><br><br>
+
+<table >
+<tr>
+<td style="width:150px;" align="right">
+<input type="button" id="btndif1" class="btn btn-info" style="font-size:15px;" value="1단계 글자 수 힌트" onclick="javascript_:hint(1,1);">
+</td>
+<td style="width:150px;">
+<label id="dif1" style = "display:none;">&nbsp;5 글자</label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btndif2" class="btn btn-info" style="display:none;font-size:15px;" value="2단계 초성 힌트" onclick="javascript_:hint(1,2);">
+</td>
+<td style="width:150px;">
+<label id="dif2" style = "display:none;">&nbsp;ㅅㅍㅌㅇㅇ </label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btndif3" class="btn btn-info" style="display:none;font-size:15px;" value="3단계 문장 힌트" onclick="javascript_:hint(1,3);">
+</td>
+<td style="width:500px;">
+<label id="dif3" style = "display:none;">&nbsp;자동차와 같은 하드웨어(hardware)가 처리해야 할 일의 순서와 방법을 지시하는 프로그램을 소프트웨어(software)라고 합니다.</label>
+</td>
+</tr></table>
+</div>
+
+<br>
+
+<div id=div2 style = "display:none;" class="shadow p-3 mb-5 bg-body-tertiary rounded">
+<br>
+<b><font size=5>&nbsp;2. <input type="text" style="width:200px;font-size:50px;" id="c2" onkeydown="javascript_:if(event.keyCode==13) {op(2);}">은 3차원 영상으로 실물처럼 입체적으로 보이게 하는 사진 입니다. </font>&nbsp;<input type="button" class="btn btn-warning" style="font-size:20px;" value="정답확인" onclick="javascript_:op(2);"><br><br><br>
+
+<table><tr>
+<td style="width:150px;" align="right">
+<input type="button" id="btnre1" class="btn btn-info" style="font-size:15px;" value="1단계 글자 수 힌트" onclick="javascript_:hint(2,1);">
+</td>
+<td style="width:150px;">
+<label id="re1" style = "display:none;">&nbsp;4 글자</label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btnre2" class="btn btn-info" style="display:none;font-size:15px;" value="2단계 초성 힌트" onclick="javascript_:hint(2,2);">
+</td>
+<td style="width:150px;">
+<label id="re2" style = "display:none;">&nbsp;ㅎㄹㄱㄹ </label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btnre3" class="btn btn-info" style="display:none;font-size:15px;" value="3단계 문장 힌트" onclick="javascript_:hint(2,3);">
+</td>
+<td style="width:500px;">
+<label id="re3" style = "display:none;">&nbsp; 3차원 영상으로 실물처럼 입체적으로 보이게 하는 사진을 홀로그램 이라고 합니다.  </label>
+</td>
+</tr></table>
+</div>
+
+<br>
+
+<div id=div3 style = "display:none;" class="shadow p-3 mb-5 bg-body-tertiary rounded">
+<br>
+<b><font size=5>수고하셨습니다. <br>책을 펴고 오늘 배울 내용을 살펴보세요~<br><br><br>
+
+</div>
+
+
+
+
+
+
+</td></tr></table>
+</body>
+</html>
