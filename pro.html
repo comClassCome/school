@@ -1,0 +1,576 @@
+
+
+
+<html>
+<head>
+
+
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+
+
+<script type="text/javascript">
+
+var alert1 = "정답입니다~ ^.^";  
+var alert2 = "빈칸에 올바른 답을 입력하세요 >_<;";
+
+gS();    //랜덤명언
+
+//명언시작  20200229
+function gS(){
+var goodSay=0;
+goodSay=parseInt((Math.random()*85)+1);
+
+switch (goodSay){
+ case 1:
+  document.write("<br><br><center>인생은 자전거를 타는 것과 같다. 균형을 잡으려면 움직여야 한다.<br>Life is like riding a bicycle. To keep your balance you must keep moving.<br><br>- 알버트 아인슈타인 (Albert Einstein) -" );
+  break;
+ case 2:
+  document.write("<br><br><center>20세에 보수주의자가 되는 것은 무정한 것이고 60세에 진보주의자가 되는 것은 정말 어리석은 것이다.<br>To be conservative at 20 is heartless and to be a liberal at 60 is plain idiocy.<br><br>- 윈스턴 처칠 (Sir Winston Churchill) -");
+  break;
+ case 3:
+  document.write("<br><br><center>우리는 젊을 때에 배우고 나이가 들어서 이해한다.<br>In youth we learn; in age we understand.<br><br>- 마리 폰 에브너 에셴바흐 (Marie Ebner von Eschenbach) -");
+  break;
+ case 4:
+  document.write("<br><br><center>인간은 자신이 필요로하는 것을 찾아 세계를 여행하고 집에 돌아와 그것을 발견한다.<br>A man travels the world over in search of what he needs and returns home to find it.<br><br>- 조지 무어 (George Moor) -");
+  break;
+ case 5:
+  document.write("<br><br><center>인생이란 네가 다른 계획을 세우느라 바쁠 때 너에게 일어나는 것이다.<br>Life is what happens to you while you're busy making other plans.<br><br>- 존 레논 (John Lennon) -");
+  break;
+ case 6:
+  document.write("<br><br><center>인생은 3막이 고약하게 쓰여진 조금 괜찮은 연극이다.<br>Life is a moderately good play with a badly written third act.<br><br>- 트루먼 카포트 (Truman Capote) -");
+  break;
+ case 7:
+  document.write("<br><br><center>중요한 것은 학습을 중단하지 않고, 도전을 즐기고, 애매모호함을 받아들이는 것이다. 종국에는 확실한 해답은 없기 마련이다.<br>What is important is to keep learning, to enjoy challenge, and to tolerate ambiguity. In the end there are no certain answers.<br><br>- 마티나 호너 (Martina Horner) -");
+  break;
+ case 8:
+  document.write("<br><br><center>제대로 배우기 위해서는 거창하고 교양 있는 전통이나 돈이 필요하지 않다. 스스로를 개선하고자 하는 열망이 있는 사람들이 필요할 뿐이다.<br>You don't need fancy highbrow traditions or money to really learn. You just need people with the desire to better themselves.<br><br>- 아담 쿠퍼 (Adam Cooper) -");
+  break;
+ case 9:
+  document.write("<br><br><center>나는 행동이 사람의 생각을 가장 훌륭하게 해석해 준다고 늘 생각해왔다.<br>I have always thought the actions of men the best interpreters of their thoughts.<br><br>- 존 로크 (John Locke) -");
+  break;
+ case 10:
+  document.write("<br><br><center>배움이 없는 자유는 언제나 위험하며 자유가 없는 배움은 언제나 헛된 일입니다.<br>Liberty without learning is always in peril; learning without liberty is always in vain.<br><br>- 존 F. 케네디 (John F. Kennedy) -");
+  break;
+ case 11:
+  document.write("<br><br><center>인생에서 가장 위대한 교훈은, 심지어는 바보도 어떨 때는 옳다는 걸 아는 것이다.<br>The greatest lesson in life is to know that even fools are right sometimes.<br><br>- 윈스턴 처칠 (Sir Winston Churchill) -");
+  break;
+ case 12:
+  document.write("<br><br><center>지적인 욕구가 있는 자만이 배울 것이요, 의지가 확고한 자만이 배움의 길목에 있는 장애물을 극복할 것이다. 나는 항상 지능지수보다는 모험지수에 열광했다.<br>Only the curious will learn and only the resolute overcome the obstacles to learning. The quest quotient has always excited me more than the intelligence quotient.<br><br>- 유진 윌슨 (Eugene S. Wilson) -");
+  break;
+ case 13:
+  document.write("<br><br><center>백만 가지 사실을 머릿속에 집어넣고도 여전히 완전히 무지할 수 있다.<br>It is possible to store the mind with a million facts and still be entirely uneducated.<br><br>- 알렉 본 (Alec Bourne) -");
+  break;
+ case 14:
+  document.write("<br><br><center>행동의 가치는 그 행동을 끝까지 이루는 데 있다.<br>The merit of an action lies in finishing it to the end.<br><br>- 칭기즈칸 (Genghis Khan) -");
+  break;
+ case 15:
+  document.write("<br><br><center>행동은 말보다 더 새빨간 거짓말을 한다.<br>Actions lie louder than words.<br><br>- 캐롤린 웰스 (Carolyn Wells) -");
+  break;
+ case 16:
+  document.write("<br><br><center>스승은 부모보다 더 존경받아야 한다, 부모는 생명을 준 것 뿐이지만 스승은 잘 사는 기술을 주었기 때문이다.<br>Those who educate children well are more to be honored than parents, for these only gave life, those the art of living well.<br><br>- 아리스토텔레스 (Aristotle) -");
+  break;
+ case 17:
+  document.write("<br><br><center>교육은 양날의 칼과 같다. 제대로 다루지 못하면 위험한 용도로 쓰일 수 있다.<br>Education is like a double-edged sword. It may be turned to dangerous uses if it is not properly handled.<br><br>- 우팅팡 (Wu Ting-Fang) -");
+  break;
+ case 18:
+  document.write("<br><br><center>군자는 말하기 전에 행동하고, 그후 자신의 행동에 맞춰 말을 한다.<br>The superior man acts before he speaks, and afterwards speaks according to his action.<br><br>- 공자 (Confucius) -");
+  break;
+ case 19:
+  document.write("<br><br><center>교육은 우리 자신의 무지를 점차 발견해 가는 과정이다.<br>Education is a progressive discovery of our own ignorance.<br><br>- 윌 듀란트 (Will Durant) -");
+  break;
+ case 20:
+ document.write("<br><br><center>남의 말을 따라하기 위해서는 교육이 필요하다. 그 말에 도전하기 위해서는 두뇌가 필요하다.<br>To repeat what others have said, requires education; to challenge it, requires brains.<br><br>- 메리 페티본 풀 (Mary Pettibone Poole) -");
+  break;
+ case 21:
+  document.write("<br><br><center>그녀는 교육의 최상의 목적이 최상의 결과에 대해 놀라는 것이 아니라, 최상의 결과를 일상적인 일로 간주하는 것임을 안다.<br>She knows what is the best purpose of education: not to be frightened by the best but to treat it as part of daily life.<br><br>- 존 메이슨 브라운 (John Mason Brown) -");
+  break;
+ case 22:
+  document.write("<br><br><center>모두에게 전성기가 있지만 어떤 이들의 전성기는 다른 이들보다 더 길다.<br>Everyone has his day and some days last longer than others.<br><br>- 윈스턴 처칠 (Sir Winston Churchill) -");
+  break;
+ case 23:
+  document.write("<br><br><center>운수는 재미로 어리석은 자를 먼저 찾아가 그들을 요행의 수레바퀴에 던질 수 있다.<br>Fortune can, for her pleasure, fools advance, And toss them on the wheels of Chance.<br><br>- 유베날리스 (Juvenal) -");
+  break;
+ case 24:
+  document.write("<br><br><center>소신껏 이룬 성공이 아니라면, 남 보기에 좋아도 스스로가 좋다고 느끼지 못한다면 그것은 전혀 성공이 아니다.<br>If your success is not on your own terms, if it looks good to the world but does not feel good in your heart, it is not success at all.<br><br>- 안나 퀸드랜 (Anna Quindlen) -");
+  break;
+ case 25:
+  document.write("<br><br><center>에너지는 영원한 기쁨이다.<br>Energy is eternal delight.<br><br>- 윌리엄 블레이크 (William Blake) -");
+  break;
+ case 26:
+  document.write("<br><br><center>오직 한 가지 성공이 있을 뿐이다. 바로 자기 자신만의 방식으로 삶을 살아갈 수 있느냐이다.<br>There is only one success - to be able to spend your life in your own way.<br><br>- 크리스토퍼 몰리 (Christopher Morley) -");
+  break;
+ case 27:
+  document.write("<br><br><center>성공한 사람이 될 수 있는데 왜 평범한 이에 머무르려 하는가?<br>Why be a man when you can be a success?<br><br>- 베르톨트 브레히트 (Bertolt Brecht) -");
+  break;
+ case 28:
+ document.write("<br><br><center>성공이 그렇게 달콤한 것은 결코 성공하지 못한 사람들이 있기 때문이다.<br>Success is counted sweetest by those who ne'er succeed.<br><br>- 에밀리 디킨스 (Emily Dickinson) -");
+  break;
+ case 29:
+ document.write("<br><br><center>모든 언행을 칭찬하는 자보다 결점을 친절하게 말해주는 친구를 가까이하라.<br>Think not those faithful who praise all your words and actions; but those who kindly reprove your faults.<br><br>- 소크라테스 (Socrates) -");
+  break;
+ case 30:
+  document.write("<br><br><center>위대한 사람은 기회가 없다고 원망하지 않는다.<br>No great man ever complains of want of opportunity.<br><br>- 랄프 왈도 에머슨 (Ralph Waldo Emerson) -");
+  break;
+ case 31:
+  document.write("<br><br><center>재능은 게임에서 이기게 한다. 그러나 팀워크는 우승을 가져온다.<br>Talent wins games, but teamwork wins championships.<br><br>- 마이클 조던 (Michael Jordan) -");
+  break;
+ case 32:
+  document.write("<br><br><center>설명하지마라. 친구라면 설명할 필요가 없고, 적이라면 어차피 당신을 믿으려 하지 않을테니까.<br>Never explain. your friends do not need it and your enemies will not believe you anyway.<br><br>- 엘버트 허버드 (Elbert Hubbard) -");
+  break;
+ case 33:
+  document.write("<br><br><center>역경은 누가 진정한 친구인지 가르쳐준다.<br>Adversity does teach who your real friends are.<br><br>- 로이스 맥마스터 부욜 (Lois McMaster Bujold) -");
+  break;
+ case 34:
+  document.write("<br><br><center>사람들이 원하는 모든 것은 자신의 얘기를 들어줄 사람이다.<br>All people want is someone to listen.<br><br>- 휴 엘리어트 (Hugh Elliott) -");
+  break;
+ case 35:
+  document.write("<br><br><center>사탕발린 칭찬이 아닌 분별있는 애정의 증표로 친구를 사귀어라.<br>Get not your friends by bare compliments, but by giving them sensible tokens of your love.<br><br>- 소크라테스 (Socrates) -");
+  break;
+ case 36:
+  document.write("<br><br><center>지식인이라면 적을 사랑할 수 있을 뿐 아니라 친구를 미워할 수도 있어야한다.<br>The man of knowledge must be able not only to love his enemies but also to hate his friends.<br><br>- 프레드리히 니체 (Friedrich Nietzsche) -");
+  break;
+ case 37:
+  document.write("<br><br><center>친구라면 친구의 결점을 참고 견뎌야 한다.<br>A friend should bear his friend's infirmities.<br><br>- 윌리엄 셰익스피어 (William Shakespeare) -");
+  break;
+ case 38:
+  document.write("<br><br><center>당신이 사람들을 좋아한다는 점을 분명히 한다면, 그들도 당신을 좋아하지 않고는 못 베길 것이다.<br>If you make it plain you like people, it's hard for them to resist liking you back.<br><br>- 로이스 맥마스터 부욜 (Lois McMaster Bujold) -");
+  break;
+ case 39:
+  document.write("<br><br><center>누구에게나 친구는 어느 누구에게도 친구가 아니다.<br>A friend to all is a friend to none.<br><br>- 아리스토텔레스 (Aristotle) -");
+  break;
+ case 40:
+  document.write("<br><br><center>나는 삶을 변화시키는 아이디어를 항상 책에서 얻었다.<br>Life-transforming ideas have always come to me through books.<br><br>- 벨 훅스 (Bell Hooks) -");
+  break;
+ case 41:
+  document.write("<br><br><center>한 권의 책을 읽음으로써 자신의 삶에서 새 시대를 본 사람이 너무나 많다.<br>How many a man has dated a new era in his life from the reading of a book.<br><br>- 헨리 데이비드 소로우 (Henry David Thoreau) -");
+  break;
+ case 42:
+  document.write("<br><br><center>책 없는 방은 영혼 없는 육체와도 같다.<br>A room without books is like a body without a soul.<br><br>- 키케로 (Cicero) -");
+  break;
+ case 43:
+  document.write("<br><br><center>때때로 독서는 생각하지 않기 위한 기발한 수단이다.<br>Reading is sometimes an ingenious device for avoiding thought.<br><br>- 아서 헬프스 (Sir Arthur Helps) -");
+  break;
+ case 44:
+  document.write("<br><br><center>단순히 읽기 시작했다는 이유만으로 결코 책을 끝까지 읽지 말라.<br>Never read a book through merely because you have begun it.<br><br>- 존 위더스푼 (John Witherspoon) -");
+  break;
+ case 45:
+  document.write("<br><br><center>책으로 한 나라의 상당 부분을 다닐 수 있다.<br>You can cover a great deal of country in books.<br><br>- 앤드루 랭 (Andrew Lang) -");
+  break;
+ case 46:
+  document.write("<br><br><center>닫혀있기만 한 책은 블록일 뿐이다.<br>A book that is shut is but a block.<br><br>- 토마스 풀러 (Thomas Fuller) -");
+  break;
+ case 47:
+  document.write("<br><br><center>좋은 책을 읽는 것은 과거 몇 세기의 가장 훌륭한 사람들과 이야기를 나누는 것과 같다.<br>The reading of all good books is like a conversation with the finest men of past centuries.<br><br>- 르네 데카르트 (Rene Descartes) -");
+  break;
+ case 48:
+  document.write("<br><br><center>시간은 차갑게 식혀주고, 명확하게 보여준다. 변하지 않은 채 몇 시간이고 지속되는 마음의 상태는 없다.<br>Time cools, time clarifies; no mood can be maintained quite unaltered through the course of hours.<br><br>- 마크 트웨인 (Mark Twain) -");
+  break;
+ case 49:
+  document.write("<br><br><center>과거를 애절하게 들여다보지 마라. 다시 오지 않는다. 현재를 현명하게 개선하라. 너의 것이니. 어렴풋한 미래를 나아가 맞으라. 두려움 없이.<br>Look not mournfully into the past. It comes not back again. Wisely improve the present. It is thine. Go forth to meet the shadowy future, without fear.<br><br>- 헨리 워즈워스 롱펠로우 (Henry Wadsworth Longfellow) -");
+  break;
+ case 50:
+  document.write("<br><br><center>경험을 현명하게 사용한다면, 어떤 일도 시간 낭비는 아니다.<br>Nothing is a waste of time if you use the experience wisely.<br><br>- 오귀스트 르네 로댕 (Auguste Rodin) -");
+  break;
+ case 51:
+  document.write("<br><br><center>무엇을 잘 하는 것은 시간낭비일 때가 많다.<br>Doing a thing well is often a waste of time.<br><br>- 로버트 바이른 (Robert Byrne) -");
+  break;
+ case 52:
+  document.write("<br><br><center>이른 아침은 입에 황금을 물고 있다.<br>Early morning hath gold in its mouth.<br><br>- 벤자민 프랭클린 (Benjamin Franklin) -");
+  break;
+ case 53:
+  document.write("<br><br><center>시간을 도구로 사용할 뿐, 시간에 의존해서는 안된다. (시간이 모든 것을 해결해 줄 것이라 기대하지 말고, 시간을 주도하라.)<br>We must use time as a tool, not as a crutch.<br><br>- 존 F. 케네디 (John F. Kennedy) -");
+  break;
+ case 54:
+  document.write("<br><br><center>과거를 기억 못하는 이들은 과거를 반복하기 마련이다.<br>Those who cannot remember the past are condemned to repeat it.<br><br>- 조지 산타야나 (George Santayana) -");
+  break;
+ case 55:
+  document.write("<br><br><center>매일 아침 하루 일과를 계획하고 그 계획을 실행하는 사람은, 극도로 바쁜 미로 같은 삶 속에서 그를 안내할 한 올의 실을 지니고 있는 것이다. 그러나 계획이 서있지 않고 단순히 우발적으로 시간을 사용하게 된다면, 곧 무질서가 삶을 지배할 것이다.<br>He who every morning plans the transaction of the day and follows out that plan, carries a thread that will guide him through the maze of the most busy life. But where no plan is laid, where the disposal of time is surrendered merely to the chance of incidence, chaos will soon reign.<br><br>- 빅터 위고 (Victor Hugo) -");
+  break;
+ case 56:
+  document.write("<br><br><center>성공하려고 아무리 열심히 노력해도 실패에 대한 두려움이 마음에 가득하다면, 노력하지 않게 되고 정진이 허사가 되어 성공은 불가능해질 것이다.<br>No matter how hard you work for success if your thought is saturated with the fear of failure, it will kill your efforts, neutralize your endeavors and make success impossible.<br><br>- 보두앵 (Baudjuin) -");
+  break;
+ case 57:
+  document.write("<br><br><center>아무 하는 일 없이 시간을 허비하지 않겠다고 맹세하라. 우리가 항상 뭔가를 한다면 놀라우리만치 많은 일을 해낼 수 있다.<br>Determine never to be idle...It is wonderful how much may be done if we are always doing.<br><br>- 토마스 제퍼슨 (Thomas Jefferson) -");
+  break;
+ case 58:
+  document.write("<br><br><center>수정을 용납하지 않는 계획은 나쁜 계획이다.<br>It is a bad plan that admits of no modification.<br><br>- 퍼블릴리어스 사이러스 (Publilius Syrus) -");
+  break;
+ case 59:
+  document.write("<br><br><center>개선이란 무언가가 좋지 않다고 느낄 수 있는 사람들에 의해서만 만들어질 수 있다.<br>Improvements are invented only by those who can feel that something is not good.<br><br>- 프레드리히 니체 (Friedrich Nietzsche) -");
+  break;
+ case 60:
+  document.write("<br><br><center>지식이 없는 성실은 허약하고 쓸모 없다. 성실이 없는 지식은 위험하고 두려운 것이다.<br>Integrity without knowledge is weak and useless, and knowledge without integrity is dangerous and dreadful.<br><br>- 사무엘 존슨 (Samuel Johnson) -");
+  break;
+ case 61:
+  document.write("<br><br><center>가장 위대한 영광은 한 번도 실패하지 않음이 아니라 실패할 때마다 다시 일어서는 데에 있다.<br>Our greatest glory is not in never falling, but in rising every time we fall.<br><br>- 공자 (Confucius) -");
+  break;
+ case 62:
+  document.write("<br><br><center>성실함의 잣대로 스스로를 평가하라, 그리고 관대함의 잣대로 남들을 평가하라.<br>Judge thyself with the judgment of sincerity, and thou will judge others with the judgment of charity.<br><br>- 존 미첼 메이슨 (John Mitchell Mason) -");
+  break;
+ case 63:
+  document.write("<br><br><center>위대한 성취를 하려면 행동하는 것뿐만 아니라, 꿈꾸는 것도 반드시 필요하다.<br>To accomplish great things, we must dream as well as act.<br><br>- 아나톨 프랑스 (Anatole France) -");
+  break;
+ case 64:
+  document.write("<br><br><center>얼굴이 계속 햇빛을 향하도록 하라. 그러면 당신의 그림자를 볼 수 없다.<br>Keep your face to the sunshine and you cannot see the shadow.<br><br>- 헬렌 켈러 (Helen Keller) -");
+  break;
+ case 65:
+  document.write("<br><br><center>웃음 없는 하루는 낭비한 하루다.<br>A day without laughter is a day wasted.<br><br>- 찰리 채플린 (Charlie Chaplin) -");
+  break;
+ case 66:
+  document.write("<br><br><center>두려움은 희망 없이 있을 수 없고 희망은 두려움없이 있을 수 없다.<br>Fear cannot be without hope nor hope without fear.<br><br>- 바뤼흐 스피노자 (Baruch Spinoza) -");
+  break;
+ case 67:
+  document.write("<br><br><center>낮에 꿈꾸는 사람은 밤에만 꿈꾸는 사람에게는 찾아오지 않는 많은 것을 알고 있다.<br>Those who dream by day are cognizant of many things which escape those who dream only by night.<br><br>- 에드거 앨런 포 (Edgar Allan Poe) -");
+  break;
+ case 68:
+  document.write("<br><br><center>웃음은 마음의 조깅이다.<br>Laughter is inner jogging.<br><br>- 노먼 커즌즈 (Norman Cousins) -");
+  break;
+ case 69:
+  document.write("<br><br><center>할 말이 없을 때에는 가만히 있으라. 진정한 열정이 느껴질 때, 꼭 해야 할 말이 있을 때 그것을 정열을 다해 말하라.<br>Be still when you have nothing to say; when genuine passion moves you, say what you've got to say, and say it hot.<br><br>- D. H. 로렌스 (D. H. Lawrence) -");
+  break;
+ case 70:
+  document.write("<br><br><center>모든 고귀한 일은 찾기 드문만큼 하기도 어렵다.<br>All noble things are as difficult as they are rare.<br><br>- 바뤼흐 스피노자 (Baruch Spinoza) -");
+  break;
+ case 71:
+  document.write("<br><br><center>이 세상에 열정없이 이루어진 위대한 것은 없다.<br>Nothing great in the world has been accomplished without passion.<br><br>- 게오르크 빌헬름 (Georg Wilhelm) -");
+  break;
+ case 72:
+  document.write("<br><br><center>믿음이 부족하기 때문에 도전하길 두려워하는 바, 나는 스스로를 믿는다.<br>It's lack of faith that makes people afraid of meeting challenges, and I believe in myself.<br><br>- 무하마드 알리(Muhammad Ali) -");
+  break;
+ case 73:
+  document.write("<br><br><center>당신이 어떤 위험을 감수하냐를 보면, 당신이 무엇을 가치있게 여기는지 알 수 있다.<br>What you risk reveals what you value.<br><br>- 자넷 윈터슨 (Jeanette Winterson) -");
+  break;
+ case 74:
+  document.write("<br><br><center>다른 사람들이 할 수 있거나 할 일을 하지 말고, 다른 이들이 할 수 없고 하지 않을 일들을 하라.<br>Never do things others can do and will do if there are things others cannot do or will not do.<br><br>- 아멜리아 에어하트 (Amelia Earhart) -");
+  break;
+ case 75:
+  document.write("<br><br><center>도전을 받아들여라. 그러면 승리의 쾌감을 맛볼 지도 모른다.<br>Accept challenges, so that you may feel the exhilaration of victory.<br><br>- 조지 S. 패튼 (George S. Patton) -");
+  break;
+ case 76:
+  document.write("<br><br><center>사람을 존경하라, 그러면 그는 더 많은 일을 해 낼 것이다.<br>Respect a man, he will do the more.<br><br>- 제임스 오웰 (James Howell) -");
+  break;
+ case 77:
+  document.write("<br><br><center>천재란 자신에게 주어진 일을 하는 재능 있는 사람일 뿐이다.<br>A genius is just a talented person who does his homework.<br><br>- 토마스 A. 에디슨 (Thomas A. Edison) -");
+  break;
+ case 78:
+  document.write("<br><br><center>내 자신에 대한 자신감을 잃으면, 온 세상이 나의 적이 된다.<br>If I have lost confidence in myself, I have the universe against me.<br><br>- 랄프 왈도 에머슨 (Ralph Waldo Emerson) -");
+  break;
+ case 79:
+  document.write("<br><br><center>가장 용감한 행동은 자신만을 생각하는 것이다. 큰 소리로.<br>The most courageous act is still to think for yourself. Aloud.<br><br>- 가브리엘(코코)샤넬 (Gabriel Coco Chanel) -");
+  break;
+ case 80:
+  document.write("<br><br><center>자존심은 오전에는 풍요, 오후에는 가난, 밤에는 악명과 함께한다.<br>Pride breakfasted with plenty, dined with poverty, and supped with infamy.<br><br>- 벤자민 프랭클린 (Benjamin Franklin) -");
+  break;
+ case 81:
+  document.write("<br><br><center>가지고 있는 어떤 재주든 사용하라. 노래를 가장 잘하는 새들만 지저귀면 숲은 너무도 적막할 것이다.<br>Use what talents you possess: the woods would be very silent if no birds sang there except those that sang best.<br><br>- 헨리 반 다이크 (Henry Van Dyke) -");
+  break;
+ case 82:
+  document.write("<br><br><center>모욕 당하는 방법은 그것에 굴복하는 것이다. 사람은 요구하는 만큼만 존중을 받게 된다.<br>The way to procure insults is to submit to them: a man meets with no more respect than he exacts.<br><br>- 윌리엄 해즐릿 (William Hazlitt) -");
+  break;
+ case 83:
+  document.write("<br><br><center>나눔은 배려, 나눔은 우리의 행복.<br>Sharing is consideraion, sharing is our happiness.<br><br>- 김아주 (Student) -");
+ break;
+ case 84:
+  document.write("<br><br><center>우리 예쁜 학생들, 아름다운 어른이 되길 바래요 ^.^<br>my pretty babys Be a beautiful adult.<br><br>- 컴쌤 (ComT) -");
+ break;
+ case 85:
+  document.write("<br><br><center>컴쌤은 여러분을 많이 사랑해요 ^.^<br>I love you a lot.<br><br>- 컴쌤 (comT) -");
+  }
+}
+//명언끝
+
+
+//날짜
+var today = new Date()
+dayStr = today.toLocaleString();
+const year = today.getFullYear();
+const month = String(today.getMonth() + 1).padStart(2, "0");
+const day = String(today.getDate()).padStart(2, "0");
+var weekaday = ['일','월','화','수','목','금','토'] ;
+var week = weekaday[today.getDay()];
+document.write("<br><br><img src='snow.gif' width='250' height='150'>");
+document.write("<right><br><b>&nbsp;날짜 : ");
+document.write(year+"년 "+month+"월 "+day+"일 "+week+"요일 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [정보]");
+
+document.write("</b>");
+//날짜끝
+
+
+//계산시작
+function op(num)
+{
+ var cnum = document.getElementById("c"+ num ).value;
+ switch (num) {
+	case 1 :
+		if(cnum.trim() == "추상화")
+  		{document.getElementById("div2").style.display = "block"; document.getElementById("c"+(num+1)).focus();}
+ 		else
+ 		{alert(alert2);}
+		break;
+	case 2 :
+		if(cnum.trim() == "알고리즘")
+  		{document.getElementById("div3").style.display = "block"; document.getElementById("c"+(num+1)).focus();}
+ 		else
+ 		{alert(alert2);}
+		break;
+	case 3 :
+		if(cnum.trim() == "변수")
+  		{document.getElementById("div4").style.display = "block"; document.getElementById("c"+(num+1)).focus();}
+ 		else
+ 		{alert(alert2);}
+		break;		
+	case 4 :
+		if(cnum.trim() == "연산자")
+  		{document.getElementById("div5").style.display = "block"; document.getElementById("c"+(num+1)).focus();document.getElementById("div6").style.display = "block";}
+ 		else
+ 		{alert(alert2);}
+		break;	
+	default:
+    		alert("이 코드는 실행되지 않습니다.");
+	}
+
+}
+//계산끝
+
+//hint 시작
+function hint(fir, sec)
+{
+	switch (fir) {
+	case 1 :
+		switch (sec) {
+		case 1 :
+			document.getElementById("dif1").style.display = "block";
+			document.getElementById("btndif2").style.display = "block";
+		break;
+		case 2 :
+			document.getElementById("dif2").style.display = "block";
+			document.getElementById("btndif3").style.display = "block";
+		break;
+		case 3 :
+			document.getElementById("dif3").style.display = "block";
+		break;		
+		}
+
+		break;
+	case 2 :
+		switch (sec) {
+		case 1 :
+			document.getElementById("re1").style.display = "block";
+			document.getElementById("btnre2").style.display = "block";
+		break;
+		case 2 :
+			document.getElementById("re2").style.display = "block";
+			document.getElementById("btnre3").style.display = "block";
+		break;
+		case 3 :
+			document.getElementById("re3").style.display = "block";
+		break;		
+		}
+
+		break;
+	case 3 :
+		switch (sec) {
+		case 1 :
+			document.getElementById("af1").style.display = "block";
+			document.getElementById("btnaf2").style.display = "block";
+		break;
+		case 2 :
+			document.getElementById("af2").style.display = "block";
+			document.getElementById("btnaf3").style.display = "block";
+		break;
+		case 3 :
+			document.getElementById("af3").style.display = "block";
+		break;		
+		}
+
+		break;		
+	case 4 :
+		switch (sec) {
+		case 1 :
+			document.getElementById("tea1").style.display = "block";
+			document.getElementById("btntea2").style.display = "block";
+		break;
+		case 2 :
+			document.getElementById("tea2").style.display = "block";
+			document.getElementById("btntea3").style.display = "block";
+		break;
+		case 3 :
+			document.getElementById("tea3").style.display = "block";
+		break;		
+		}
+
+		break;
+	default:
+    		alert("이 코드는 실행되지 않습니다.");
+	}
+}
+//hint 끝
+
+</script>
+</head>
+
+<body onload="document.getElementById('c1').focus()">
+
+<br>
+
+<center>
+<hr color="yellow"> 
+
+<table width=70% height=15% bgcolor="fbbe7a">
+<tr>
+<td valign = "bottom">
+<br>
+<b><font size=5>&nbsp;* 빈칸에 알맞는 답을 입력하세요.
+<!-- </font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=blue>(2개의 정답을 모두 맞히면 코딩파티 홈페이지에 입장할 수 있습니다.)</font> -->
+</b>
+<br><br>
+
+
+<div id=div1 class="shadow p-3 mb-5 bg-body-tertiary rounded">
+<br>
+<b><font size=5>&nbsp;1. 넓은 의미로 우리가 필요한 것에 집중할 수 있도록 중요한 것을 남기고 무시할 것을 걸러내는 것을 말한다. 즉 실세계의 복잡한 상황을 간결하고 명확하게 단순화하거나 일반화하여 표현하는 것을 <input type="text" style="width:150px;font-size:50px;" id="c1" onkeydown="javascript_:if(event.keyCode==13) {op(1);}">라고 한다.</font>
+&nbsp;<input type="button" class="btn btn-warning" style="font-size:20px;" value="정답확인" onclick="javascript_:op(1);">
+<br><br><br>
+
+<table >
+<tr>
+<td style="width:150px;" align="right">
+<input type="button" id="btndif1" class="btn btn-info" style="font-size:15px;" value="1단계 글자 수 힌트" onclick="javascript_:hint(1,1);">
+</td>
+<td style="width:150px;">
+<label id="dif1" style = "display:none;">&nbsp;3 글자</label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btndif2" class="btn btn-info" style="display:none;font-size:15px;" value="2단계 초성 힌트" onclick="javascript_:hint(1,2);">
+</td>
+<td style="width:150px;">
+<label id="dif2" style = "display:none;">&nbsp;ㅊㅅㅎ </label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btndif3" class="btn btn-info" style="display:none;font-size:15px;" value="3단계 문장 힌트" onclick="javascript_:hint(1,3);">
+</td>
+<td style="width:500px;">
+<label id="dif3" style = "display:none;">&nbsp좁은의미로 어떠한 문제를 해결하기 위해서 반드시 필요한 핵심 요소를 파악하고, 불필요하게 세부적이고 복잡하게 만드는 요소들을 없애 간략하고 단순하게 만드는 것을 추상화라고 한다. </label>
+</td>
+</tr></table>
+</div>
+
+<br>
+
+<div id=div2 style = "display:none;" class="shadow p-3 mb-5 bg-body-tertiary rounded">
+<br>
+<b><font size=5>&nbsp;2. 어떤 
+문제를 해결하기 위한 절차나 방법을 <input type="text" style="width:200px;font-size:50px;" id="c2" onkeydown="javascript_:if(event.keyCode==13) {op(2);}"> 이라고한다. </font>&nbsp;<input type="button" class="btn btn-warning" style="font-size:20px;" value="정답확인" onclick="javascript_:op(2);"><br><br><br>
+
+<table><tr>
+<td style="width:150px;" align="right">
+<input type="button" id="btnre1" class="btn btn-info" style="font-size:15px;" value="1단계 글자 수 힌트" onclick="javascript_:hint(2,1);">
+</td>
+<td style="width:150px;">
+<label id="re1" style = "display:none;">&nbsp;4 글자</label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btnre2" class="btn btn-info" style="display:none;font-size:15px;" value="2단계 초성 힌트" onclick="javascript_:hint(2,2);">
+</td>
+<td style="width:150px;">
+<label id="re2" style = "display:none;">&nbsp;ㅇㄱㄹㅈ </label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btnre3" class="btn btn-info" style="display:none;font-size:15px;" value="3단계 문장 힌트" onclick="javascript_:hint(2,3);">
+</td>
+<td style="width:500px;">
+<label id="re3" style = "display:none;">&nbsp; 어떤 문제를 해결하기 위한 절차나 방법을 알고리즘이라고 한다. </label>
+</td>
+</tr></table>
+</div>
+
+<br>
+
+<div id=div3 style = "display:none;" class="shadow p-3 mb-5 bg-body-tertiary rounded">
+<br>
+<b><font size=5>&nbsp;3. <input type="text" style="width:100px;font-size:50px;" id="c3" onkeydown="javascript_:if(event.keyCode==13) {op(3);}">은 프로그램을 작성할 때 컴퓨팅 시스템 내에서 데이터를 처리하거나 저장하기 위한 메모리(기억 장소)를 말한다.</font>
+&nbsp;<input type="button" class="btn btn-warning" style="font-size:20px;" value="정답확인" onclick="javascript_:op(3);"><br><br><br>
+
+<table><tr>
+<td style="width:150px;" align="right">
+<input type="button" id="btnaf1" class="btn btn-info" style="font-size:15px;" value="1단계 글자 수 힌트" onclick="javascript_:hint(3,1);">
+</td>
+<td style="width:150px;">
+<label id="af1" style = "display:none;">&nbsp;2 글자</label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btnaf2" class="btn btn-info" style="display:none;font-size:15px;" value="2단계 초성 힌트" onclick="javascript_:hint(3,2);">
+</td>
+<td style="width:150px;">
+<label id="af2" style = "display:none;">&nbsp;ㅂㅅ </label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btnaf3" class="btn btn-info" style="display:none;font-size:15px;" value="3단계 문장 힌트" onclick="javascript_:hint(3,3);">
+</td>
+<td style="width:500px;">
+<label id="af3" style = "display:none;">&nbsp;변수는 프로그램을 작성할 때 컴퓨팅 시스템 내에서 데이터를 처리하거나 저장하기 위한 메모리(기억 장소)를 말한다. </label>
+</td>
+</tr></table>
+
+
+</div>
+
+<br>
+
+<div id=div4 style = "display:none;" class="shadow p-3 mb-5 bg-body-tertiary rounded">
+<br>
+<b><font size=5>&nbsp;4. <input type="text" style="width:150px;font-size:50px;" id="c4" onkeydown="javascript_:if(event.keyCode==13) {op(4);}">는 어떠한 것을 계산하기 위한 기호라고 할 수 있다.</font>&nbsp;<input type="button" class="btn btn-warning" style="font-size:20px;" value="정답확인" onclick="javascript_:op(4);"><br><br><br>
+
+<table><tr>
+<td style="width:150px;" align="right">
+<input type="button" id="btntea1" class="btn btn-info" style="font-size:15px;" value="1단계 글자 수 힌트" onclick="javascript_:hint(4,1);">
+</td>
+<td style="width:150px;">
+<label id="tea1" style = "display:none;">&nbsp;3 글자</label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btntea2" class="btn btn-info" style="display:none;font-size:15px;" value="2단계 초성 힌트" onclick="javascript_:hint(4,2);">
+</td>
+<td style="width:150px;">
+<label id="tea2" style = "display:none;">&nbsp;ㅇㅅㅈ </label>
+</td>
+<td style="width:150px;" align="right">
+<input type="button" id="btntea3" class="btn btn-info" style="display:none;font-size:15px;" value="3단계 문장 힌트" onclick="javascript_:hint(4,3);">
+</td>
+<td style="width:500px;">
+<label id="tea3" style = "display:none;">&nbsp;연산자는 어떠한 것을 계산하기 위한 기호라고 할 수 있다.</label>
+</td>
+</tr></table>
+
+
+</div>
+
+
+<br>
+
+<div id=div5 style = "display:none;" class="shadow p-3 mb-5 bg-body-tertiary rounded">
+<br>
+<b><font size=5>&nbsp;5. 보너스 문제 - 나만의 수식으로 표현해보기</font>
+<br><pre><font size=3>     
+     예1) 3=1    : 우리집 식구는 3명인데 나는 언제나 혼자이다.
+     예2) 24+1=1 : 우리반은 1반인데 학생 24명과 담임선생님 1분으로 구성되어 있다.
+</pre>
+<br>
+<textarea id="c5" style="width:100%; height:300px;"></textarea>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+</td></tr></table>
+</body>
+</html>
