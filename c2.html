@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주관식 랜덤 퀴즈 10문제</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            text-align: center;
+            padding: 20px;
+        }
+        .quiz-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            margin: auto;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+        }
+
+        /* 정답 메시지 뒤 공백 추가 */
+        .result.correct, .result.incorrect {
+            margin-bottom: 20px; /* 정답 및 틀린 답 뒤에 공백을 추가 */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>주관식 랜덤 퀴즈 10문제</h1>
+        <p id="quiz-question"></p>
+        <input type="text" id="answer" placeholder="답을 입력하세요">
+        <button onclick="checkAnswer()">제출</button>
+        <div class="result" id="result"></div>
+        <button onclick="nextQuiz()">다음 문제</button>
+    </div>
+
+    <script>
+        const quizzes = [
+            { question: "자료형이 정수형인 변수 선언 시 사용하는 키워드는?", answer: "int" },
+            { question: "문자열을 출력하는 함수는?", answer: "printf" },
+            { question: "'형식지정자'라고도 하며 컴퓨터가 데이터를 어떻게 해석해야 하는지 알려 주는 텍스트나 기호는?", answer: "서식지정자" },
+            { question: "코드에서 컴퓨터가 실행하지 않고 무시하도록 처리한 부분을 말하며 코드가 어떤 내용인지를 알려 주거나 메모를 남길 때 사용하는 것은?", answer: "주석" },
+            { question: "변하지 않는 수로, 한 번 선언하면 더 이상 값을 바꿀 수 없는 것은?", answer: "상수" },
+            { question: "키보드로 값을 입력받아 변수에 저장하는 함수명은?(표준으로 적어주세요)", answer: "scanf" },
+            { question: "자료형이 실수형인 변수 선언 시 사용하는 키워드로 값 뒤에 f를 붙여야 하는 것은?", answer: "float" },
+            { question: "자료형이 문자형인 변수 선언 시 사용하는 키워드는?", answer: "char" },
+            { question: "정수형을 출력하는 서식지정자는?", answer: "%d" },
+            { question: "문자형을 출력하는 서식지정자 중 문자열을 출력하는 서식지정자는?", answer: "%s" }
+        ];
+
+        let currentQuizIndex = 0;
+
+        function getQuiz() {
+            return quizzes[currentQuizIndex];
+        }
+
+        function loadQuiz() {
+            const quiz = getQuiz();
+            document.getElementById("quiz-question").textContent = quiz.question;
+            document.getElementById("answer").value = "";
+            document.getElementById("result").textContent = "";
+            document.getElementById("result").classList.remove("correct", "incorrect"); // 클래스 초기화
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById("answer").value.trim();
+            const resultElement = document.getElementById("result");
+            const correctAnswer = getQuiz().answer;
+
+            if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                resultElement.textContent = "정답입니다!";
+                resultElement.style.color = "green";
+                resultElement.classList.add("correct"); // 정답일 때 공백 클래스 추가
+            } else {
+                resultElement.textContent = `틀렸습니다. 정답은 "${correctAnswer}" 입니다.`;
+                resultElement.style.color = "red";
+                resultElement.classList.add("incorrect"); // 틀렸을 때도 공백 클래스 추가
+            }
+        }
+
+        function nextQuiz() {
+            if (currentQuizIndex < quizzes.length - 1) {
+                currentQuizIndex++;
+                loadQuiz();
+            } else {
+                document.getElementById("quiz-question").textContent = "모든 퀴즈가 끝났습니다!";
+                document.getElementById("result").textContent = "축하합니다!";
+                document.getElementById("answer").style.display = "none";
+                document.querySelector("button").style.display = "none";
+            }
+        }
+
+	// 엔터 키로 제출 감지
+        //document.getElementById("answer").addEventListener("keydown", function(event) {
+        //    if (event.key === "Enter") {
+        //        checkAnswer();
+       //     }
+       // });
+
+        // 처음 퀴즈 로드
+        loadQuiz();
+    </script>
+
+</body>
+</html>
