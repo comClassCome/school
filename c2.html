@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -65,22 +64,22 @@
 
   <script>
     const quizzes = [
-      { question: "자료형이 정수형인 변수 선언 시 사용하는 키워드는?", answer: "int" },
-      { question: "문자열을 출력하는 함수는?", answer: "printf" },
-      { question: "'형식지정자'라고도 하며 컴퓨터가 데이터를 어떻게 해석해야 하는지 알려 주는 텍스트나 기호는?", answer: "서식지정자" },
-      { question: "코드에서 컴퓨터가 실행하지 않고 무시하도록 처리한 부분을 말하며 코드가 어떤 내용인지를 알려 주거나 메모를 남길 때 사용하는 것은?", answer: "주석" },
-      { question: "변하지 않는 수로, 한 번 선언하면 더 이상 값을 바꿀 수 없는 것은?", answer: "상수" },
-      { question: "키보드로 값을 입력받아 변수에 저장하는 함수명은?(표준으로 적어주세요)", answer: "scanf" },
-      { question: "자료형이 실수형인 변수 선언 시 사용하는 키워드로 값 뒤에 f를 붙여야 하는 것은?", answer: "float" },
-      { question: "자료형이 문자형인 변수 선언 시 사용하는 키워드는?", answer: "char" },
-      { question: "정수형을 출력하는 서식지정자는?", answer: "%d" },
-      { question: "문자형을 출력하는 서식지정자 중 문자열을 출력하는 서식지정자는?", answer: "%s" },
-      { question: "아래는 반복문 형식 중 하나이다. ⓐ에 들어갈 내용은?<br><br>for (선언;ⓐ; 증감) { // 수행할 문장}", answer: "조건" },
-      { question: "아래는 반복문의 형식 중 하나이다 ⓐ에 들어갈 알맞은 명령문은?<br><br>선언;ⓐ (조건) {// 수행할 문장(증감 포함)}", answer: "while" },
-      { question: "아래는 반복문의 형식 중 하나이다 ⓐ에 들어갈 알맞은 명령문은?<br><br>선언;ⓐ{ // 수행할 문장} while (조건);", answer: "do" },
-      { question: "아래는 조건문의 형식이다 ⓐ에 들어갈 알맞은 명령문은?<br><br>if (조건) { // 조건을 만족할 때 수행할 문장} ⓐ { // 조건을 만족하지 않을 때 수행할 문장}", answer: "else" },
-      { question: "for 문을 수행하다가 조건을 만족하든 안 하든 상관없이 for 문을 탈출하는 기능을 하는 명령문은?", answer: "break" },
-      { question: "반복문을 탈출하지 않고 이번 반복만 종료한 후 다음 반복으로 넘어가는 명령문은?", answer: "continue" },
+      { question: "(67p) 자료형이 정수형인 변수 선언 시 사용하는 키워드는?", answer: "int" },
+      { question: "(66p) 문자열을 출력하는 함수는?", answer: "printf" },
+      { question: "(67p) '형식지정자'라고도 하며 컴퓨터가 데이터를 어떻게 해석해야 하는지 알려 주는 텍스트나 기호는?", answer: "서식지정자" },
+      { question: "(66p) 코드에서 컴퓨터가 실행하지 않고 무시하도록 처리한 부분을 말하며 코드가 어떤 내용인지를 알려 주거나 메모를 남길 때 사용하는 것은?", answer: "주석" },
+      { question: "(66p) 변하지 않는 수로, 한 번 선언하면 더 이상 값을 바꿀 수 없는 것은?", answer: "상수" },
+      { question: "(66p) 키보드로 값을 입력받아 변수에 저장하는 함수명은?(표준으로 적어주세요)", answer: "scanf" },
+      { question: "(67p) 자료형이 실수형인 변수 선언 시 사용하는 키워드로 값 뒤에 f를 붙여야 하는 것은?", answer: "float" },
+      { question: "(67p) 자료형이 문자형인 변수 선언 시 사용하는 키워드는?", answer: "char" },
+      { question: "(67p) 정수형을 출력하는 서식지정자는?", answer: "%d" },
+      { question: "(67p) 문자형을 출력하는 서식지정자 중 문자열을 출력하는 서식지정자는?", answer: "%s" },
+      { question: "(99p) 아래는 반복문 형식 중 하나이다. ⓐ에 들어갈 내용은?<br><br>for (선언;ⓐ; 증감) { // 수행할 문장}", answer: "조건" },
+      { question: "(99p) 아래는 반복문의 형식 중 하나이다 ⓐ에 들어갈 알맞은 명령문은?<br><br>선언;ⓐ (조건) {// 수행할 문장(증감 포함)}", answer: "while" },
+      { question: "(99p) 아래는 반복문의 형식 중 하나이다 ⓐ에 들어갈 알맞은 명령문은?<br><br>선언;ⓐ{ // 수행할 문장} while (조건);", answer: "do" },
+      { question: "(105p) 아래는 조건문의 형식이다 ⓐ에 들어갈 알맞은 명령문은?<br><br>if (조건) { // 조건을 만족할 때 수행할 문장} ⓐ { // 조건을 만족하지 않을 때 수행할 문장}", answer: "else" },
+      { question: "(113p) for 문을 수행하다가 조건을 만족하든 안 하든 상관없이 for 문을 탈출하는 기능을 하는 명령문은?", answer: "break" },
+      { question: "(116p) 반복문을 탈출하지 않고 이번 반복만 종료한 후 다음 반복으로 넘어가는 명령문은?", answer: "continue" },
     ];
 
     function shuffleArray(array) {
@@ -122,13 +121,13 @@
         resultElement.style.color = "green";
         resultElement.classList.add("correct");
         confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-
+     
         score++;
       } else {
         resultElement.textContent = `틀렸습니다. 정답은 "${correctAnswer}" 입니다.`;
         resultElement.style.color = "red";
         resultElement.classList.add("incorrect");
-
+        
       }
 
       answered = true;
