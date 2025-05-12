@@ -1,173 +1,172 @@
 
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>주관식 랜덤 퀴즈 10문제</title>
-    <style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>주관식 랜덤 퀴즈 16문제</title>
+  <style>
     body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            text-align: center;
-            padding: 20px;
-        }
-        .quiz-container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 600px;
-            margin: auto;
-        }
-        input[type="text"] {
-            padding: 10px;
-            width: 80%;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .result {
-            margin-top: 20px;
-        }
-
-        /* 정답 메시지 뒤 공백 추가 */
-        .result.correct, .result.incorrect {
-            margin-bottom: 20px; /* 정답 및 틀린 답 뒤에 공백을 추가 */
-        }
-    </style>
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      text-align: center;
+      padding: 20px;
+    }
+    .quiz-container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 600px;
+      margin: auto;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 80%;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .result {
+      margin-top: 20px;
+    }
+    .result.correct, .result.incorrect {
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="quiz-container">
-        <h1>주관식 랜덤 퀴즈 16문제</h1>
-        <p id="quiz-question"></p>
-        <input type="text" id="answer" placeholder="답을 입력하세요">
-        <button onclick="checkAnswer()">제출</button>
-        <div class="result" id="result"></div>
-        <button id="next-button" onclick="nextQuiz()">다음 문제</button>
-    </div>
-
-    <script>
-        const quizzes = [
-            { question: "자료형이 정수형인 변수 선언 시 사용하는 키워드는?", answer: "int" },
-            { question: "문자열을 출력하는 함수는?", answer: "printf" },
-            { question: "'형식지정자'라고도 하며 컴퓨터가 데이터를 어떻게 해석해야 하는지 알려 주는 텍스트나 기호는?", answer: "서식지정자" },
-            { question: "코드에서 컴퓨터가 실행하지 않고 무시하도록 처리한 부분을 말하며 코드가 어떤 내용인지를 알려 주거나 메모를 남길 때 사용하는 것은?", answer: "주석" },
-            { question: "변하지 않는 수로, 한 번 선언하면 더 이상 값을 바꿀 수 없는 것은?", answer: "상수" },
-            { question: "키보드로 값을 입력받아 변수에 저장하는 함수명은?(표준으로 적어주세요)", answer: "scanf" },
-            { question: "자료형이 실수형인 변수 선언 시 사용하는 키워드로 값 뒤에 f를 붙여야 하는 것은?", answer: "float" },
-            { question: "자료형이 문자형인 변수 선언 시 사용하는 키워드는?", answer: "char" },
-            { question: "정수형을 출력하는 서식지정자는?", answer: "%d" },
-            { question: "문자형을 출력하는 서식지정자 중 문자열을 출력하는 서식지정자는?", answer: "%s" },
-
-	    { question: "아래는 반복문 형식 중 하나이다. ⓐ에 들어갈 내용은?<br><br>for (선언;ⓐ; 증감) { // 수행할 문장}", answer: "조건" },
-            { question: "아래는 반복문의 형식 중 하나이다 ⓐ에 들어갈 알맞은 명령문은?<br><br>선언;ⓐ (조건) {// 수행할 문장(증감 포함)}", answer: "while" },
-            { question: "아래는 반복문의 형식 중 하나이다 ⓐ에 들어갈 알맞은 명령문은?<br><br>선언;ⓐ{ // 수행할 문장} while (조건);", answer: "do" },
-            { question: "아래는 조건문의 형식이다 ⓐ에 들어갈 알맞은 명령문은?<br><br>if (조건) { // 조건을 만족할 때 수행할 문장} ⓐ { // 조건을 만족하지 않을 때 수행할 문장}", answer: "else" },
-            { question: "for 문을 수행하다가 조건을 만족하든 안 하든 상관없이 for 문을 탈출하는 기능을 하는 명령문은?", answer: "break" },
-            { question: "반복문을 탈출하지 않고 이번 반복만 종료한 후 다음 반복으로 넘어가는 명령문은?", answer: "continue" },
-        ];
+  <div class="quiz-container">
+    <h1>주관식 랜덤 퀴즈 16문제</h1>
+    <p id="quiz-question"></p>
+    <input type="text" id="answer" placeholder="답을 입력하세요">
+    <button onclick="checkAnswer()">제출</button>
+    <div class="result" id="result"></div>
+    <button id="next-button" onclick="nextQuiz()">다음 문제</button>
+  </div>
 
 
-	// Fisher-Yates 알고리즘으로 배열 셔플
-	function shuffleArray(array) {
-	    	for (let i = array.length - 1; i > 0; i--) {
-        	const j = Math.floor(Math.random() * (i + 1));
-	        [array[i], array[j]] = [array[j], array[i]];
-    		}
-	}
 
-	shuffleArray(quizzes); // 시작할 때 퀴즈 순서 섞기
+  <!-- Confetti 라이브러리 -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
+  <script>
+    const quizzes = [
+      { question: "자료형이 정수형인 변수 선언 시 사용하는 키워드는?", answer: "int" },
+      { question: "문자열을 출력하는 함수는?", answer: "printf" },
+      { question: "'형식지정자'라고도 하며 컴퓨터가 데이터를 어떻게 해석해야 하는지 알려 주는 텍스트나 기호는?", answer: "서식지정자" },
+      { question: "코드에서 컴퓨터가 실행하지 않고 무시하도록 처리한 부분을 말하며 코드가 어떤 내용인지를 알려 주거나 메모를 남길 때 사용하는 것은?", answer: "주석" },
+      { question: "변하지 않는 수로, 한 번 선언하면 더 이상 값을 바꿀 수 없는 것은?", answer: "상수" },
+      { question: "키보드로 값을 입력받아 변수에 저장하는 함수명은?(표준으로 적어주세요)", answer: "scanf" },
+      { question: "자료형이 실수형인 변수 선언 시 사용하는 키워드로 값 뒤에 f를 붙여야 하는 것은?", answer: "float" },
+      { question: "자료형이 문자형인 변수 선언 시 사용하는 키워드는?", answer: "char" },
+      { question: "정수형을 출력하는 서식지정자는?", answer: "%d" },
+      { question: "문자형을 출력하는 서식지정자 중 문자열을 출력하는 서식지정자는?", answer: "%s" },
+      { question: "아래는 반복문 형식 중 하나이다. ⓐ에 들어갈 내용은?<br><br>for (선언;ⓐ; 증감) { // 수행할 문장}", answer: "조건" },
+      { question: "아래는 반복문의 형식 중 하나이다 ⓐ에 들어갈 알맞은 명령문은?<br><br>선언;ⓐ (조건) {// 수행할 문장(증감 포함)}", answer: "while" },
+      { question: "아래는 반복문의 형식 중 하나이다 ⓐ에 들어갈 알맞은 명령문은?<br><br>선언;ⓐ{ // 수행할 문장} while (조건);", answer: "do" },
+      { question: "아래는 조건문의 형식이다 ⓐ에 들어갈 알맞은 명령문은?<br><br>if (조건) { // 조건을 만족할 때 수행할 문장} ⓐ { // 조건을 만족하지 않을 때 수행할 문장}", answer: "else" },
+      { question: "for 문을 수행하다가 조건을 만족하든 안 하든 상관없이 for 문을 탈출하는 기능을 하는 명령문은?", answer: "break" },
+      { question: "반복문을 탈출하지 않고 이번 반복만 종료한 후 다음 반복으로 넘어가는 명령문은?", answer: "continue" },
+    ];
 
-        let currentQuizIndex = 0;
- 	let answered = false; // 답안을 제출했는지 여부 추적
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
 
-        function getQuiz() {
-            return quizzes[currentQuizIndex];
-        }
+    shuffleArray(quizzes);
 
-        function loadQuiz() {
-            const quiz = getQuiz();
-            //document.getElementById("quiz-question").textContent = quiz.question;
-	    document.getElementById("quiz-question").innerHTML = quiz.question;
-            document.getElementById("answer").value = "";
-            document.getElementById("result").textContent = "";
-            document.getElementById("result").classList.remove("correct", "incorrect"); // 클래스 초기화
-	    answered = false; // 새 문제에서는 제출 상태 초기화
-        }
+    let currentQuizIndex = 0;
+    let score = 0;
+    let answered = false;
 
-        function checkAnswer() {
-            const userAnswer = document.getElementById("answer").value.trim();
-            const resultElement = document.getElementById("result");
-            const correctAnswer = getQuiz().answer;
+    function getQuiz() {
+      return quizzes[currentQuizIndex];
+    }
 
-            //if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
-		if (userAnswer === correctAnswer) { //대소문자 구분
+    function loadQuiz() {
+      const quiz = getQuiz();
+      document.getElementById("quiz-question").innerHTML = quiz.question;
+      document.getElementById("answer").value = "";
+      document.getElementById("result").textContent = "";
+      document.getElementById("result").classList.remove("correct", "incorrect");
+      answered = false;
+    }
 
-                resultElement.textContent = "정답입니다!";
-                resultElement.style.color = "green";
-                resultElement.classList.add("correct"); // 정답일 때 공백 클래스 추가
-            } else {
-                resultElement.textContent = `틀렸습니다. 정답은 "${correctAnswer}" 입니다.`;
-                resultElement.style.color = "red";
-                resultElement.classList.add("incorrect"); // 틀렸을 때도 공백 클래스 추가
-            }
-		answered = true; // 제출 완료 상태로 변경
-		
-        }
+    function checkAnswer() {
+      const userAnswer = document.getElementById("answer").value.trim();
+      const resultElement = document.getElementById("result");
+      const correctAnswer = getQuiz().answer;
 
-        function nextQuiz() {
-	    document.getElementById("answer").focus();  	 // 다음문제 로드 시 자동으로 커서 위치 이동 2차추가
-            if (currentQuizIndex < quizzes.length - 1) {
-                currentQuizIndex++;
-                loadQuiz();
-            } else {
-                document.getElementById("quiz-question").textContent = "모든 퀴즈가 끝났습니다!";
-                //document.getElementById("result").textContent = "축하합니다!";
-		document.getElementById("result").textContent = "F5 키를 누르고 새로고침 하여 문제를 다시 풀어 보세요";
+      const correctSound = document.getElementById("correct-sound");
+      const incorrectSound = document.getElementById("incorrect-sound");
 
-                document.getElementById("answer").style.display = "none";
-                document.querySelector("button").style.display = "none";
-		document.getElementById("next-button").style.display = "none"; //추가
-            }
-        }
+      if (userAnswer === correctAnswer) {
+        resultElement.textContent = "정답입니다!";
+        resultElement.style.color = "green";
+        resultElement.classList.add("correct");
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
 
-	// 엔터 키로 제출 감지
-        document.getElementById("answer").addEventListener("keydown", function(event) {
-            if (event.key === "Enter") {
-                //checkAnswer();
-		 if (!answered) {
-                checkAnswer(); // 아직 제출 안 했으면 제출
-            	} else {
-                nextQuiz(); // 이미 제출했으면 다음 문제
-            }
-            }
-        });
+        score++;
+      } else {
+        resultElement.textContent = `틀렸습니다. 정답은 "${correctAnswer}" 입니다.`;
+        resultElement.style.color = "red";
+        resultElement.classList.add("incorrect");
 
+      }
 
-	 // 페이지 로드 시 자동으로 커서 위치 이동 2차추가
-        window.onload = function() {
-            document.getElementById("answer").focus(); // 텍스트 박스에 자동으로 커서 이동
-        }
+      answered = true;
+    }
 
-        // 처음 퀴즈 로드
+    function nextQuiz() {
+      document.getElementById("answer").focus();
+      if (currentQuizIndex < quizzes.length - 1) {
+        currentQuizIndex++;
         loadQuiz();
-    </script>
+      } else {
+        const total = quizzes.length;
+        const percentage = Math.round((score / total) * 100);
+        document.getElementById("quiz-question").innerHTML = `
+          모든 퀴즈가 끝났습니다!<br>
+          <strong>${score} / ${total} 문제 정답 (${percentage}%)</strong>`;
+        document.getElementById("result").textContent = "F5 키를 누르고 새로고침 하여 문제를 다시 풀어 보세요";
+        document.getElementById("answer").style.display = "none";
+        document.querySelector("button").style.display = "none";
+        document.getElementById("next-button").style.display = "none";
+      }
+    }
 
+    document.getElementById("answer").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        if (!answered) {
+          checkAnswer();
+        } else {
+          nextQuiz();
+        }
+      }
+    });
+
+    window.onload = function () {
+      document.getElementById("answer").focus();
+    };
+
+    loadQuiz();
+  </script>
 </body>
 </html>
