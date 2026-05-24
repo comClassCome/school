@@ -184,7 +184,7 @@
       const correctSound = document.getElementById("correct-sound");
       const incorrectSound = document.getElementById("incorrect-sound");
 
-      if (userAnswer === correctAnswer) {
+      if (userAnswer.replace(/\s/g, '') === correctAnswer) {
         resultElement.textContent = "정답입니다!";
         resultElement.style.color = "green";
         resultElement.classList.add("correct");
