@@ -1,4 +1,6 @@
 
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -301,7 +303,8 @@ footer{
   <!-- 하드웨어 -->
   <div class="dropdown">
 
-    <a id="menuHardware">🖥 하드웨어의 구성</a>
+    <a id="menuHardware" onclick="
+    openCPU()">🖥 하드웨어의 구성</a>
 
     <div class="dropdown-content">
 
@@ -336,7 +339,11 @@ footer{
   <!-- 소프트웨어 -->
   <div class="dropdown">
 
-    <a id="menuSoftware">📦 소프트웨어의 구성</a>
+    <a id="menuSoftware" onclick="
+      showSection(
+      'systemSW',
+      document.getElementById('menuSoftware')
+      )">📦 소프트웨어의 구성</a>
 
     <div class="dropdown-content">
 
@@ -363,7 +370,11 @@ footer{
   <!-- 동작 -->
   <div class="dropdown">
 
-    <a id="menuProcess">⚙ 컴퓨팅 시스템 동작</a>
+    <a id="menuProcess" onclick="
+      showSection(
+      'principle',
+      document.getElementById('menuProcess')
+      )">⚙ 컴퓨팅 시스템 동작</a>
 
     <div class="dropdown-content">
 
@@ -507,7 +518,7 @@ footer{
 <h2>🛠 시스템소프트웨어</h2>
 
 <div class="content-box">
-컴퓨팅 시스템 자체의 동작을 관리하고 제어하는 소프트웨어로, 운영체제와 유틸리티 프로그램으로 구분된다.
+운영체제, 드라이버 등 컴퓨터를 관리하는 소프트웨어이다.
 </div>
 
 </section>
