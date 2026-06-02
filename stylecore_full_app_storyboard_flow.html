@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleCore - Full App Storyboard & System Flow Blueprint</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandNavy: '#0f172a',
+                        brandGold: '#c5a880',
+                        brandGoldHover: '#b59770',
+                        brandCream: '#fcfbf9',
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #05070c;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        
+        /* 폰트 크기 변환용 시뮬레이션 */
+        .large-font-preview p, 
+        .large-font-preview span, 
+        .large-font-preview button,
+        .large-font-preview li {
+            font-size: 112% !important;
+        }
+
+        /* 부드러운 호버 트랜지션 정의 */
+        .card-active {
+            box-shadow: 0 0 25px rgba(197, 168, 128, 0.25);
+            border-color: #c5a880 !important;
+        }
+
+        .pulse-emerald {
+            animation: pulseBg 2s infinite;
+        }
+
+        @keyframes pulseBg {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 15px 4px rgba(16, 185, 129, 0.2); }
+        }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4 md:px-8">
+
+    <!-- 전체 대시보드 및 설계도 제어 헤더 -->
+    <header class="max-w-7xl mx-auto mb-8">
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-slate-900/80 p-6 rounded-2xl border border-slate-800/80 backdrop-blur-md">
+            <div>
+                <span class="text-xs font-bold tracking-widest text-brandGold uppercase"><i class="fa-solid fa-compass-drafting mr-1"></i> UI Storyboard & Data Flow Blueprint</span>
+                <h1 class="text-3xl font-serif font-bold text-white mt-1">StyleCore 전체 화면 설계도 및 데이터 토폴로지</h1>
+                <p class="text-xs text-slate-400 mt-2">
+                    20세 이상 성인 전용 가치소비 및 온디바이스 체형 안심 매칭 솔루션의 UI 스토리보드와 데이터 연동 흐름을 원페이지 입체 맵으로 제시합니다.
+                </p>
+            </div>
+            <!-- 실시간 동적 인터랙션 컨트롤러 -->
+            <div class="flex flex-wrap gap-2">
+                <button onclick="highlightAllFlows()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-bold border border-slate-700 transition-all">
+                    <i class="fa-solid fa-route mr-1"></i> 전체 데이터 흐름 활성화
+                </button>
+                <button onclick="toggleVisualTheme()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-bold border border-slate-700 transition-all">
+                    <i class="fa-solid fa-moon mr-1"></i> 배경 모드 전환
+                </button>
+                <span class="bg-brandGold/10 text-brandGold border border-brandGold/30 rounded-lg px-3 py-2 text-xs font-bold flex items-center">
+                    <i class="fa-solid fa-circle-check text-emerald-500 mr-1.5 animate-pulse"></i> AI 윤리 적합성 검증 완료
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 대화형 시각 캔버스 -->
+    <main class="max-w-7xl mx-auto space-y-12">
+        
+        <!-- 파트 1: 4대 핵심 모바일 스크린 병렬 설계도 (High-Fidelity Wireframes) -->
+        <section class="space-y-4">
+            <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                <h2 class="text-xl font-bold text-slate-100 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-brandGold rounded"></span>
+                    앱 화면 스토리보드 및 인터랙티브 와이어프레임 (Story Board Grid)
+                </h2>
+                <span class="text-xs text-slate-400">각 스마트폰 프레임을 클릭하거나 우측의 플로우 컨트롤을 조작할 수 있습니다.</span>
+            </div>
+
+            <!-- 4개 화면 가로 배열 컨테이너 (그리드) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <!-- 스크린 1: 온보딩 & 필수 가입 동의 (Consent & Age Setting) -->
+                <div id="card-screen1" class="relative group bg-slate-900 border border-slate-800 rounded-[32px] p-4 transition-all duration-300 hover:scale-[1.01] hover:border-slate-700">
+                    <div class="absolute -top-3 left-6 bg-brandGold text-slate-950 font-bold text-[10px] px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
+                        Screen 01. 온보딩 및 동의
+                    </div>
+                    
+                    <!-- 가상 기기 바디 -->
+                    <div class="w-full bg-brandCream rounded-[24px] overflow-hidden text-slate-800 flex flex-col min-h-[560px] relative shadow-inner mt-2">
+                        <!-- 노치/상태바 -->
+                        <div class="bg-brandCream p-1 pt-3 flex justify-between items-center px-6 text-[10px] font-bold text-slate-900 border-b border-slate-100">
+                            <span>14:20</span>
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-wifi"></i>
+                                <i class="fa-solid fa-battery-three-quarters"></i>
+                            </div>
+                        </div>
+
+                        <!-- 가독성 가동 배율 지원 퀵바 -->
+                        <div class="px-3 py-1.5 bg-slate-200 border-b border-slate-300 flex justify-between items-center text-[10px] text-slate-700 font-bold">
+                            <span><i class="fa-solid fa-eye mr-1 text-slate-500"></i> 시각 보조 모드</span>
+                            <button onclick="toggleInDeviceFontSize(1)" class="px-1.5 py-0.5 bg-white border border-slate-400 rounded hover:bg-slate-50 text-[9px] font-black">
+                                배율 토글
+                            </button>
+                        </div>
+
+                        <!-- 가상 콘텐츠 스크롤러 -->
+                        <div id="device-content-1" class="p-4 flex-grow flex flex-col justify-between space-y-4">
+                            <div class="text-center">
+                                <h3 class="font-serif text-2xl font-black text-brandNavy tracking-tight">Style<span class="text-brandGold">Core</span></h3>
+                                <p class="text-[9px] text-slate-500 font-bold mt-1">20세 이상 성인 전용 평생 의류 핏 추천</p>
+                            </div>
+
+                            <div class="bg-white p-3 rounded-lg border border-slate-200/80 shadow-sm space-y-2">
+                                <span class="text-[9px] bg-brandGold/15 text-brandGold font-bold px-1.5 py-0.5 rounded border border-brandGold/30 block w-max">
+                                    <i class="fa-solid fa-shield-halved mr-1"></i> 안심 로컬 연산 처리 약관
+                                </span>
+                                <p class="text-[10px] text-slate-600 leading-relaxed font-medium">
+                                    본 앱은 촬영된 실물 이미지를 서버로 절대로 전송하지 않으며, 단말 내 자체 로컬 신경망을 통해 24개 골격 벡터 데이터로 변환 후 즉시 전신 사진을 파기합니다.
+                                </p>
+                                <div class="flex items-center pt-1 border-t border-slate-100">
+                                    <input type="checkbox" id="sc1-consent" class="w-3.5 h-3.5 accent-brandGold" checked disabled>
+                                    <label class="text-[10px] text-slate-800 font-bold ml-1.5">안전 로컬 수집 처리에 동의</label>
+                                </div>
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <label class="text-[10px] font-bold text-slate-800 block"><i class="fa-solid fa-user-clock text-brandGold mr-1"></i> 기본 세대 연령대 선택</label>
+                                <div class="grid grid-cols-4 gap-1">
+                                    <button class="py-1 bg-slate-100 border border-slate-300 rounded text-[9px] font-black hover:bg-brandGold hover:text-white transition-colors">20대</button>
+                                    <button class="py-1 bg-slate-100 border border-slate-300 rounded text-[9px] font-black hover:bg-brandGold hover:text-white transition-colors">30-40대</button>
+                                    <button class="py-1 bg-brandNavy text-white rounded text-[9px] font-black">50-60대</button>
+                                    <button class="py-1 bg-slate-100 border border-slate-300 rounded text-[9px] font-black hover:bg-brandGold hover:text-white transition-colors">70대+</button>
+                                </div>
+                                <span class="text-[8px] text-slate-400 block">* 나이에 따른 골격 변화 계수 매칭을 위해 필수적 수집을 진행합니다.</span>
+                            </div>
+
+                            <button class="w-full py-2 bg-brandNavy text-white hover:bg-slate-800 rounded-lg text-xs font-black shadow-md flex justify-center items-center gap-1">
+                                동의 완료 후 계속하기 <i class="fa-solid fa-circle-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 윤리 설계 해설 디스플레이 -->
+                    <div class="mt-3 bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] text-slate-400 space-y-1.5">
+                        <div class="flex justify-between items-center text-slate-200">
+                            <span class="font-bold text-brandGold"><i class="fa-solid fa-users"></i> ① 다양성 &amp; 동의권</span>
+                            <span class="text-[9px] bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-1 rounded font-mono">V_Consent</span>
+                        </div>
+                        <p class="leading-relaxed">사용자의 동의권을 형식적인 긴 약관 대신 첫 화면에서 직관적인 로컬 연산 공지로 전달하고, 중장년층을 배려한 시각 토글을 배치합니다.</p>
+                    </div>
+                </div>
+
+                <!-- 스크린 2: 안심 3D 신체 계측 스캐너 (Differential Privacy Scan) -->
+                <div id="card-screen2" class="relative group bg-slate-900 border border-slate-800 rounded-[32px] p-4 transition-all duration-300 hover:scale-[1.01] hover:border-slate-700">
+                    <div class="absolute -top-3 left-6 bg-brandGold text-slate-950 font-bold text-[10px] px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
+                        Screen 02. 안심 3D 스캔
+                    </div>
+
+                    <!-- 가상 기기 바디 -->
+                    <div class="w-full bg-brandCream rounded-[24px] overflow-hidden text-slate-800 flex flex-col min-h-[560px] relative shadow-inner mt-2">
+                        <!-- 노치/상태바 -->
+                        <div class="bg-brandCream p-1 pt-3 flex justify-between items-center px-6 text-[10px] font-bold text-slate-900 border-b border-slate-100">
+                            <span>14:22</span>
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-wifi"></i>
+                                <i class="fa-solid fa-battery-three-quarters"></i>
+                            </div>
+                        </div>
+
+                        <!-- 가상 기기 콘텐츠 영역 -->
+                        <div id="device-content-2" class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                            <div class="flex justify-between items-center border-b pb-1.5">
+                                <h4 class="font-bold text-brandNavy text-xs"><i class="fa-solid fa-video mr-1 text-brandGold"></i> 로컬 스마트 스캔</h4>
+                                <span class="bg-emerald-100 text-emerald-800 font-bold text-[8px] px-1.5 py-0.5 rounded-full"><i class="fa-solid fa-circle-check"></i> 로컬 안심 구동</span>
+                            </div>
+
+                            <!-- 실시간 골격 추출 보조 카메라 뷰포트 시뮬레이션 -->
+                            <div class="relative h-[210px] bg-slate-950 rounded-xl overflow-hidden border border-slate-300 flex flex-col items-center justify-center">
+                                <!-- 가이드라인 프레임 -->
+                                <div class="absolute inset-2 border border-dashed border-brandGold/40 rounded-lg flex items-center justify-center">
+                                    <!-- 실시간 Pose Estimation 벡터 그래픽 시뮬레이션 (SVG) -->
+                                    <svg class="w-full h-full opacity-70" viewBox="0 0 100 100">
+                                        <!-- 인체 골격 노드 및 라인 표현 -->
+                                        <line x1="50" y1="20" x2="50" y2="55" stroke="#10b981" stroke-width="2" />
+                                        <line x1="50" y1="30" x2="35" y2="45" stroke="#10b981" stroke-width="2" />
+                                        <line x1="50" y1="30" x2="65" y2="45" stroke="#10b981" stroke-width="2" />
+                                        <line x1="50" y1="55" x2="40" y2="80" stroke="#10b981" stroke-width="2" />
+                                        <line x1="50" y1="55" x2="60" y2="80" stroke="#10b981" stroke-width="2" />
+                                        <circle cx="50" cy="18" r="5" fill="#10b981" />
+                                        <circle cx="35" cy="45" r="3" fill="#34d399" />
+                                        <circle cx="65" cy="45" r="3" fill="#34d399" />
+                                        <circle cx="40" cy="80" r="3" fill="#34d399" />
+                                        <circle cx="60" cy="80" r="3" fill="#34d399" />
+                                        <!-- 하단 보정 및 얼굴 노출 배제 메커니즘 시각 텍스트 -->
+                                        <text x="50" y="93" fill="#34d399" font-size="6" font-weight="bold" text-anchor="middle">얼굴 및 주변 환경 자동 마스킹 제거 필터 작동 중</text>
+                                    </svg>
+                                </div>
+                                <!-- 가상 스캔 빔 -->
+                                <div class="absolute w-full h-1 bg-emerald-500 opacity-80 top-1/2 animate-bounce"></div>
+                            </div>
+
+                            <div class="bg-amber-50 p-2 rounded-lg border border-amber-200 text-[9px] text-amber-900 leading-relaxed font-medium">
+                                <span class="font-bold block"><i class="fa-solid fa-shield-halved"></i> 차분 프라이버시(Differential Privacy) 적용</span>
+                                24개의 관절 지표 좌표 모델로 추출 즉시 원본 이미지를 완전 파기하며, 수치 연산에 약간의 가우시안 노이즈를 믹스하여 외부 역추적이 완전히 불가능하도록 보호합니다.
+                            </div>
+
+                            <button class="w-full py-2 bg-brandNavy text-white hover:bg-slate-800 rounded-lg text-xs font-black shadow-md flex justify-center items-center gap-1">
+                                안전 골격 데이터 가공 완료 <i class="fa-solid fa-calculator"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 윤리 설계 해설 디스플레이 -->
+                    <div class="mt-3 bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] text-slate-400 space-y-1.5">
+                        <div class="flex justify-between items-center text-slate-200">
+                            <span class="font-bold text-brandGold"><i class="fa-solid fa-lock"></i> ② 신뢰성 &amp; 안전성</span>
+                            <span class="text-[9px] bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-1 rounded font-mono">D_Mesh</span>
+                        </div>
+                        <p class="leading-relaxed">민감 정보인 얼굴이나 배경은 제외하고 오직 의류 안심 권장 핏 계측을 위한 골격 벡터만 변환하여 데이터 수집 유출 우려를 원천 차단합니다.</p>
+                    </div>
+                </div>
+
+                <!-- 스크린 3: XAI 최적 핏 추천 피드 (Explainable AI Recommendations) -->
+                <div id="card-screen3" class="relative group bg-slate-900 border border-slate-800 rounded-[32px] p-4 transition-all duration-300 hover:scale-[1.01] hover:border-slate-700">
+                    <div class="absolute -top-3 left-6 bg-brandGold text-slate-950 font-bold text-[10px] px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
+                        Screen 03. 설명 가능한 추천 홈
+                    </div>
+
+                    <!-- 가상 기기 바디 -->
+                    <div class="w-full bg-brandCream rounded-[24px] overflow-hidden text-slate-800 flex flex-col min-h-[560px] relative shadow-inner mt-2">
+                        <!-- 노치/상태바 -->
+                        <div class="bg-brandCream p-1 pt-3 flex justify-between items-center px-6 text-[10px] font-bold text-slate-900 border-b border-slate-100">
+                            <span>14:24</span>
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-wifi"></i>
+                                <i class="fa-solid fa-battery-three-quarters"></i>
+                            </div>
+                        </div>
+
+                        <!-- 가상 기기 콘텐츠 영역 -->
+                        <div id="device-content-3" class="p-3.5 flex-grow flex flex-col justify-between space-y-3">
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <span class="text-[8px] text-slate-400 font-bold block">50대 중년 고객을 위한 정밀 가중치</span>
+                                    <h4 class="font-bold text-brandNavy text-xs">최적 피팅 &amp; 천연 베이직</h4>
+                                </div>
+                                <span class="text-[8px] bg-brandGold/20 text-slate-900 border border-brandGold/40 font-bold px-1.5 py-0.5 rounded">친환경 1등급</span>
+                            </div>
+
+                            <!-- 추천 제품 카드 -->
+                            <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm space-y-2 pb-2">
+                                <div class="relative h-[120px] bg-slate-100">
+                                    <img src="https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=400&q=80" alt="Oxford Shirt" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x120/fcfbf9/0f172a?text=StyleCore+Basic+Shirt'">
+                                    <span class="absolute bottom-1 right-1.5 bg-brandNavy/80 text-white font-bold text-[8px] px-1 py-0.5 rounded">공정무역 원단</span>
+                                </div>
+
+                                <div class="px-2 space-y-1">
+                                    <div class="flex justify-between items-start">
+                                        <h5 class="font-bold text-slate-900 text-[10px] leading-tight">프리미엄 옥스포드 클래식 셔츠</h5>
+                                        <span class="text-[10px] font-serif font-black text-brandGold">₩54,000</span>
+                                    </div>
+
+                                    <!-- 설명 가능한 AI 정보 박스 (항시 노출/토글 사양) -->
+                                    <div class="bg-slate-50 border border-slate-100 rounded-lg p-2 space-y-1">
+                                        <div class="flex justify-between text-[8px] text-slate-500 font-bold">
+                                            <span>🔍 왜 이 상품이 1위로 추천되었나요?</span>
+                                            <span class="text-brandGold">매칭 가중치 기준</span>
+                                        </div>
+                                        <div class="border-t border-slate-200/60 pt-1 space-y-1 text-[8px] text-slate-600 font-semibold">
+                                            <div class="flex justify-between">
+                                                <span>• 노화 보정치 감안 어깨 둘레핏 매칭</span>
+                                                <strong class="text-brandNavy">96% 일치</strong>
+                                            </div>
+                                            <div class="flex justify-between">
+                                                <span>• 재생 가치 소비 선호 필터 반영</span>
+                                                <strong class="text-emerald-600">80% 반영</strong>
+                                            </div>
+                                            <div class="flex justify-between">
+                                                <span>• 정밀 보정 사이즈 추천치</span>
+                                                <strong class="text-brandNavy">XL (반품예측률 1.2% 미만)</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="w-full py-1.5 bg-brandNavy text-white hover:bg-slate-800 rounded-lg text-[10px] font-black shadow flex justify-center items-center gap-1">
+                                가치소비 장바구니 담기 <i class="fa-solid fa-basket-shopping"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 윤리 설계 해설 디스플레이 -->
+                    <div class="mt-3 bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] text-slate-400 space-y-1.5">
+                        <div class="flex justify-between items-center text-slate-200">
+                            <span class="font-bold text-brandGold"><i class="fa-solid fa-eye"></i> ③ 투명성 (XAI)</span>
+                            <span class="text-[9px] bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-1 rounded font-mono">XAI_Weight</span>
+                        </div>
+                        <p class="leading-relaxed">블랙박스 모델을 타파하고, 체형 및 개인의 환경 가치 가중치가 인공지능 매칭 결과에 어떻게 연산 기여했는가를 정밀하게 분해하여 제공합니다.</p>
+                    </div>
+                </div>
+
+                <!-- 스크린 4: 데이터 라이프사이클 및 가치 가중치 통제 센터 (Ethos Control) -->
+                <div id="card-screen4" class="relative group bg-slate-900 border border-slate-800 rounded-[32px] p-4 transition-all duration-300 hover:scale-[1.01] hover:border-slate-700">
+                    <div class="absolute -top-3 left-6 bg-brandGold text-slate-950 font-bold text-[10px] px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
+                        Screen 04. 데이터 통제 센터
+                    </div>
+
+                    <!-- 가상 기기 바디 -->
+                    <div class="w-full bg-brandCream rounded-[24px] overflow-hidden text-slate-800 flex flex-col min-h-[560px] relative shadow-inner mt-2">
+                        <!-- 노치/상태바 -->
+                        <div class="bg-brandCream p-1 pt-3 flex justify-between items-center px-6 text-[10px] font-bold text-slate-900 border-b border-slate-100">
+                            <span>14:26</span>
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-wifi"></i>
+                                <i class="fa-solid fa-battery-three-quarters"></i>
+                            </div>
+                        </div>
+
+                        <!-- 가상 기기 콘텐츠 영역 -->
+                        <div id="device-content-4" class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                            <div class="border-b pb-1.5">
+                                <h4 class="font-bold text-brandNavy text-xs"><i class="fa-solid fa-user-shield mr-1 text-brandGold"></i> 알고리즘 제어 본부</h4>
+                                <p class="text-[8px] text-slate-500 font-bold">인공지능의 편향을 주체적으로 수정합니다.</p>
+                            </div>
+
+                            <!-- 실시간 가중치 변경 제어 슬라이더 (사용자 주권 확보) -->
+                            <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                                <div class="flex justify-between items-center text-[9px] text-slate-800 font-bold">
+                                    <span>체형 체감 핏 피팅 최우선도</span>
+                                    <span class="text-brandGold font-black">80%</span>
+                                </div>
+                                <input type="range" class="w-full h-1 bg-slate-200 rounded appearance-none cursor-pointer accent-brandNavy" value="80" disabled>
+
+                                <div class="flex justify-between items-center text-[9px] text-slate-800 font-bold mt-1">
+                                    <span>친환경/공정무역 브랜드 비중</span>
+                                    <span class="text-emerald-600 font-black">50%</span>
+                                </div>
+                                <input type="range" class="w-full h-1 bg-slate-200 rounded appearance-none cursor-pointer accent-emerald-500" value="50" disabled>
+                            </div>
+
+                            <!-- 파괴적 데이터 삭제 모듈 (영구 파기 및 잊힐 권리) -->
+                            <div class="bg-rose-50 p-3 rounded-xl border border-rose-200 space-y-2">
+                                <div class="flex justify-between items-center text-[9px] text-rose-950 font-bold">
+                                    <span><i class="fa-solid fa-history"></i> 안심 데이터 자동 만료</span>
+                                    <span class="bg-rose-200/80 text-rose-800 px-1.5 py-0.2 rounded">D-29일</span>
+                                </div>
+                                <p class="text-[8px] text-rose-900 leading-relaxed font-semibold">
+                                    보관 중인 로컬 3D 골격 임베딩 좌표 모델은 보안을 위해 29일 후 완전 자동 폐기 및 파쇄됩니다.
+                                </p>
+                                <button onclick="triggerSimulatedDelete()" class="w-full py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-[9px] font-black shadow-sm flex justify-center items-center gap-1 transition-all">
+                                    <i class="fa-solid fa-trash-can"></i> 신체 계측 원본 데이터 즉시 완전 삭제
+                                </button>
+                            </div>
+
+                            <p class="text-[8px] text-center text-slate-400 leading-tight font-bold">
+                                * 데이터 즉시 영구 삭제를 터치하는 경우,<br>단말기 내부 캐시 및 로컬 DB까지 일괄 포맷됩니다.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 윤리 설계 해설 디스플레이 -->
+                    <div class="mt-3 bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] text-slate-400 space-y-1.5">
+                        <div class="flex justify-between items-center text-slate-200">
+                            <span class="font-bold text-brandGold"><i class="fa-solid fa-sliders"></i> ④ 통제성 &amp; 책임성</span>
+                            <span class="text-[9px] bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-1 rounded font-mono">P_Destroy</span>
+                        </div>
+                        <p class="leading-relaxed">사용자가 알고리즘 결정 주도권을 슬라이더로 상시 개입하여 편향을 통제하고, 생체 정보 영구 파괴권을 즉시 실천하도록 배려합니다.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 파트 2: 전체 시스템 아키텍처 및 데이터 토폴로지 (System Flow & Topology) -->
+        <section class="bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-800 shadow-2xl relative overflow-hidden">
+            <div class="border-b border-slate-800 pb-4 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                        <span class="w-2 h-6 bg-brandGold rounded"></span>
+                        온디바이스 분산 수집 데이터 흐름도 (Data &amp; Architecture Map)
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-1">
+                        데이터가 단말 내에서 추천 점수로 최종 연산 및 자동 파괴되는 전 과정을 시각 토폴로지화했습니다.
+                    </p>
+                </div>
+                <div class="flex gap-2">
+                    <span class="text-[10px] bg-slate-950 text-slate-300 font-mono px-2.5 py-1 rounded border border-slate-800">
+                        로컬 기기 내 연산 (On-Device Local Zone)
+                    </span>
+                    <span class="text-[10px] bg-indigo-500/15 text-indigo-300 font-mono px-2.5 py-1 rounded border border-indigo-500/30">
+                        보안 크립토 전송 (Decentralized Secure Zone)
+                    </span>
+                </div>
+            </div>
+
+            <!-- 데이터 아키텍처 다이어그램 (반응형 카드 및 연결 그래픽) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative">
+                
+                <!-- 왼쪽 블록: 온디바이스 수집 단말 필드 (3 Cols) -->
+                <div class="lg:col-span-3 space-y-4">
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col justify-between h-full relative">
+                        <div class="absolute -top-3 left-4 bg-brandNavy text-brandGold border border-brandGold/30 text-[9px] px-2 py-0.5 rounded font-mono">
+                            STEP 01. LOCAL CAPTURE
+                        </div>
+                        <div class="space-y-3 mt-2">
+                            <h4 class="text-xs font-bold text-slate-200"><i class="fa-solid fa-tablet-screen-button text-brandGold mr-1"></i> 사용자 로컬 원천 소스</h4>
+                            <div class="space-y-2">
+                                <div id="flow-element-1" class="p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-xs hover:border-brandGold transition-all">
+                                    <div class="flex justify-between items-center text-slate-300">
+                                        <span>체형 원형 이미지 데이터</span>
+                                        <span class="text-[9px] text-rose-400 font-bold"><i class="fa-solid fa-lock"></i> 기기 외 전출 금지</span>
+                                    </div>
+                                    <p class="text-[10px] text-slate-500 mt-1">얼굴 및 환경 노출 실물 촬영 픽셀 데이터 (로컬 RAM 단 일시 로딩)</p>
+                                </div>
+                                <div id="flow-element-2" class="p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-xs hover:border-brandGold transition-all">
+                                    <div class="flex justify-between items-center text-slate-300">
+                                        <span>선호 세대 가치 편향 계수</span>
+                                        <span class="text-[9px] text-emerald-400 font-bold"><i class="fa-solid fa-sliders"></i> 개인 제어 가능</span>
+                                    </div>
+                                    <p class="text-[10px] text-slate-500 mt-1">고객 지정 환경 친화, 노화 보정치 우선 가중치 조율 벡터값</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-[10px] text-slate-500 border-t border-slate-800/80 pt-2 mt-3 flex items-center justify-between">
+                            <span>Differential Privacy 노이즈 믹스</span>
+                            <i class="fa-solid fa-arrow-right-long text-brandGold animate-pulse"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 중앙 블록: 보안 전처리 및 기하 벡터 변환 연산 가속 엔진 (6 Cols) -->
+                <div class="lg:col-span-6 space-y-4">
+                    <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 h-full flex flex-col justify-between relative">
+                        <div class="absolute -top-3 left-4 bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-[9px] px-2 py-0.5 rounded font-mono">
+                            STEP 02. ON-DEVICE AI AGGREGATION &amp; ENCRYPTION
+                        </div>
+
+                        <!-- 실시간 24개 관절 인자 연산 변환 매핑 시각 모듈 -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                            
+                            <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 space-y-2">
+                                <h5 class="text-xs font-bold text-slate-300"><i class="fa-solid fa-gears text-brandGold mr-1.5"></i> 경량 온디바이스 pose-estimation</h5>
+                                <p class="text-[10px] text-slate-500 leading-relaxed">
+                                    로컬 RAM에서 MobileNet 기하 변환 추출 모듈을 통해 실사 사진을 배제하고 오직 24개 지표 좌표만 추출 후 실사진은 즉각 메모리 소거(Zero-Trace)를 강제합니다.
+                                </p>
+                                <div class="bg-slate-950 p-2 rounded border border-slate-800 text-[9px] font-mono text-emerald-400">
+                                    [Pose_Node] -> array_noisy([x_joint, y_joint, z_joint])
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 space-y-2">
+                                <h5 class="text-xs font-bold text-slate-300"><i class="fa-solid fa-shield-halved text-brandGold mr-1.5"></i> 다목적 매칭 추천 가중 연산식</h5>
+                                <p class="text-[10px] text-slate-500 leading-relaxed">
+                                    블랙박스를 배제하는 다차원 윤리 알고리즘을 사용해 취향, 보정 피팅 가중치, 브랜드의 친환경 윤리 등급을 합산하여 최종 권장 옷을 매핑합니다.
+                                </p>
+                                <div class="bg-slate-950 p-2 rounded border border-slate-800 text-[9px] font-mono text-brandGold">
+                                    Score = (w_f * Fit) + (w_e * Eco) - λ * Age_Bias
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- 윤리적 보안 가이드라인 바닥 배치 -->
+                        <div class="mt-4 p-3 bg-indigo-950/40 rounded-xl border border-indigo-900/40 text-[11px] text-indigo-300 leading-relaxed space-y-1">
+                            <strong class="block"><i class="fa-solid fa-circle-info"></i> 외부 공격 방어 기제 (Security Safeguard)</strong>
+                            사용자의 스마트폰에 물리적인 탈옥 시도나 백업 메모리 무단 유출 정황이 검지될 경우, 암호화 저장소 내 저장된 3D 신체 좌표 스키마를 즉시 0000값으로 제로화 포맷하는 '자기파괴 장벽(Self-Destruct Trigger)'이 항시 구동됩니다.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 오른쪽 블록: 최종 가치 제안 및 환경 수혜 대시보드 (3 Cols) -->
+                <div class="lg:col-span-3 space-y-4">
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col justify-between h-full relative">
+                        <div class="absolute -top-3 left-4 bg-brandNavy text-brandGold border border-brandGold/30 text-[9px] px-2 py-0.5 rounded font-mono">
+                            STEP 03. ETHICAL PROPOSITION
+                        </div>
+                        <div class="space-y-3 mt-2">
+                            <h4 class="text-xs font-bold text-slate-200"><i class="fa-solid fa-leaf text-emerald-400 mr-1"></i> 최종 사회적 허용 피드백</h4>
+                            <div class="space-y-2">
+                                <div class="p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-xs">
+                                    <strong class="text-slate-300 block">정밀 매칭 반품율 차단</strong>
+                                    <span class="text-2xl font-serif font-black text-brandGold">1.2% 미만</span>
+                                    <p class="text-[9px] text-slate-500 mt-1">반품 및 오배송 감소로 인한 탄소 수송 배출 90% 이상 사전 상쇄</p>
+                                </div>
+                                <div class="p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-xs">
+                                    <strong class="text-slate-300 block">그린워싱 안심 검증 스코어</strong>
+                                    <span class="text-2xl font-serif font-black text-emerald-500">친환경 100%</span>
+                                    <p class="text-[9px] text-slate-500 mt-1">공인 인증기관과 정기 크로스 매칭 검증을 통과한 무결 브랜드 제안</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-[9px] text-slate-500 border-t border-slate-800/80 pt-2 mt-3 flex items-center justify-between">
+                            <span>포용적 알고리즘 기준 합격</span>
+                            <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 파트 3: 화면 명세 연계 AI 윤리 10대 핵심요건 대응 평가 매트릭스 -->
+        <section class="bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-800 shadow-xl">
+            <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span class="w-2 h-6 bg-brandGold rounded"></span>
+                AI 서비스 윤리 10대 요건 세부 실행 계획 및 실무 조치표 (Ethics Matrix)
+            </h2>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-800 text-slate-300 font-bold">
+                            <th class="py-3 px-4 w-[15%]">10대 핵심 윤리 요건</th>
+                            <th class="py-3 px-4 w-[35%]">구체적 위험 리스크 (Risk Scenario)</th>
+                            <th class="py-3 px-4 w-[35%]">실행 가능한 화면/시스템 조치 방안 (Implemented Defense)</th>
+                            <th class="py-3 px-4 w-[15%]">대응 상태</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800/60 text-slate-400">
+                        <!-- 요건 1 -->
+                        <tr class="hover:bg-slate-950/40 transition-colors">
+                            <td class="py-4 px-4 font-bold text-white flex items-center gap-1.5">
+                                <i class="fa-solid fa-shield-halved text-brandGold"></i> 개인정보 보호
+                            </td>
+                            <td class="py-4 px-4 leading-relaxed">
+                                전신 3D 형상 스캔 시 촬영된 사용자의 집 내부 배경 및 신체 나체 실루엣이 해커나 사내 관리자에게 유출될 수 있는 위험.
+                            </td>
+                            <td class="py-4 px-4 text-slate-300 leading-relaxed font-medium">
+                                온디바이스 미디어파이프 모델을 적용하여 로컬 RAM 가속 단계에서 관절 좌표 24개만 정량 필터하고 촬영 이미지는 서버 저장 없이 0.1초 내 안전 파쇄.
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded font-black">안전 (Safe)</span>
+                            </td>
+                        </tr>
+                        <!-- 요건 2 -->
+                        <tr class="hover:bg-slate-950/40 transition-colors">
+                            <td class="py-4 px-4 font-bold text-white flex items-center gap-1.5">
+                                <i class="fa-solid fa-users text-brandGold"></i> 다양성 존중
+                            </td>
+                            <td class="py-4 px-4 leading-relaxed">
+                                유행 위주 의류 브랜드들이 20대 표준 호리호리한 슬림 체형만 지원하고, 50대 이상의 노화 신체 체형 변화를 불합리하게 배제하여 핏 실패를 겪는 리스크.
+                            </td>
+                            <td class="py-4 px-4 text-slate-300 leading-relaxed font-medium">
+                                전 연령층 핏 지원을 필수 목표로 규정, 학습 파이프라인 내에 중장년/시니어 체형 정밀 지표 데이터 세그먼트를 30% 이상 강제 매핑 및 할당.
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded font-black">포용 (Inclusive)</span>
+                            </td>
+                        </tr>
+                        <!-- 요건 3 -->
+                        <tr class="hover:bg-slate-950/40 transition-colors">
+                            <td class="py-4 px-4 font-bold text-white flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye text-brandGold"></i> 투명성 확보
+                            </td>
+                            <td class="py-4 px-4 leading-relaxed">
+                                딥러닝 다차원 매칭 알고리즘의 고질적 '블랙박스 문제'로 인해, 특정 브랜드가 추천될 때 소비자가 광고성 배치인지 기계 오류인지 검증하기 어려운 사태.
+                            </td>
+                            <td class="py-4 px-4 text-slate-300 leading-relaxed font-medium">
+                                추천 피드 카드에 설명 가능한 XAI 레이블을 직접 탑재. 핏 매칭도, 브랜드 친환경 인증, 사이즈 추천 근거 수치율을 투명하게 소비자에게 정량 시각 제시.
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded font-black">투명 (XAI Clear)</span>
+                            </td>
+                        </tr>
+                        <!-- 요건 4 -->
+                        <tr class="hover:bg-slate-950/40 transition-colors">
+                            <td class="py-4 px-4 font-bold text-white flex items-center gap-1.5">
+                                <i class="fa-solid fa-scale-balanced text-brandGold"></i> 안전성 및 신뢰성
+                            </td>
+                            <td class="py-4 px-4 leading-relaxed">
+                                유령 브랜드들이 합성 폴리 섬유를 '100% 천연 오가닉 소재'라고 조작된 서류를 플랫폼에 등록하여 소비자를 속이고 부당 이득을 챙기는 그린워싱 사기 사건.
+                            </td>
+                            <td class="py-4 px-4 text-slate-300 leading-relaxed font-medium">
+                                파트너사 등록 심사 시 공식 친환경 소재 및 공정무역 인증서(GOTS 등)를 발급 기관 API와 실시간 대조 연동하는 '그린 데이터 필터 크로스 해시 체인' 구축.
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded font-black">무결성 (Reliable)</span>
+                            </td>
+                        </tr>
+                        <!-- 요건 5 -->
+                        <tr class="hover:bg-slate-950/40 transition-colors">
+                            <td class="py-4 px-4 font-bold text-white flex items-center gap-1.5">
+                                <i class="fa-solid fa-circle-exclamation text-brandGold"></i> 책임성 소재
+                            </td>
+                            <td class="py-4 px-4 leading-relaxed">
+                                AI 매칭 실수로 인한 극단적 피팅 오류 및 반품 과다 발생 시 운송 탄소 비용 분담 및 데이터 무상 보정 책임을 회피하고 상호 기만하는 도덕적 해이 리스크.
+                            </td>
+                            <td class="py-4 px-4 text-slate-300 leading-relaxed font-medium">
+                                '잊힐 권리' 보장 데이터 통제 대시보드를 전면 배치하여 사용자가 원클릭 시 단말기 내부 및 백업 데이터베이스까지 즉각 완전 파기 가능한 라이프사이클 책임 제도 도입.
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded font-black">책임 보증 (Verified)</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 사용자 임시 파기 완료 커스텀 토스트 알림 메시지 모달 -->
+    <div id="custom-toast" class="fixed bottom-12 right-1/2 translate-x-1/2 md:translate-x-0 md:right-8 bg-slate-900 border-2 border-rose-500 text-white rounded-2xl p-4 shadow-2xl z-50 max-w-sm hidden transition-all duration-300">
+        <div class="flex items-start gap-3">
+            <div class="p-2 bg-rose-500/15 rounded-xl text-rose-500">
+                <i class="fa-solid fa-circle-nodes text-lg animate-spin"></i>
+            </div>
+            <div>
+                <h5 class="text-xs font-bold text-rose-400">데이터 완전 안심 영구 삭제 기동</h5>
+                <p class="text-[10px] text-slate-300 mt-1">
+                    로컬 3D 골격 가중 임베딩 벡터 및 보안 기기 캐시 일체가 포맷되었으며 복구가 영구히 차단되었습니다.
+                </p>
+                <button onclick="closeSimulatedDelete()" class="mt-2 px-3 py-1 bg-rose-600 hover:bg-rose-700 text-[10px] font-bold rounded-lg transition-colors">
+                    완전 파쇄 확인
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 하단 라이센스 선언 및 명세서 보충 -->
+    <footer class="max-w-7xl mx-auto mt-12 text-center text-xs text-slate-500 border-t border-slate-800/80 pt-6">
+        <p>© 2026 StyleCore AI 서비스 윤리설계 프로젝트 - 전체 인터랙티브 페이지 와이어프레임 설계 도면</p>
+        <p class="text-[10px] text-slate-600 mt-1">본 설계 문서는 "온디바이스 가치소비 및 XAI 기반 의류 매칭 가중 알고리즘"의 10대 윤리 요건 보완 명세를 증명하기 위해 생성되었습니다.</p>
+    </footer>
+
+    <!-- 인터랙티브 컨트롤 스크립트 -->
+    <script>
+        // 배경 라이트/다크 전환 기능
+        let isDarkMode = true;
+        function toggleVisualTheme() {
+            if (isDarkMode) {
+                document.body.style.backgroundColor = '#1e293b';
+                isDarkMode = false;
+            } else {
+                document.body.style.backgroundColor = '#05070c';
+                isDarkMode = true;
+            }
+        }
+
+        // 전체 데이터 흐름에 하이라이트 부여하는 모션 클래스
+        function highlightAllFlows() {
+            const flow1 = document.getElementById('card-screen1');
+            const flow2 = document.getElementById('card-screen2');
+            const flow3 = document.getElementById('card-screen3');
+            const flow4 = document.getElementById('card-screen4');
+            
+            flow1.classList.add('card-active');
+            flow2.classList.add('card-active');
+            flow3.classList.add('card-active');
+            flow4.classList.add('card-active');
+
+            setTimeout(() => {
+                flow1.classList.remove('card-active');
+                flow2.classList.remove('card-active');
+                flow3.classList.remove('card-active');
+                flow4.classList.remove('card-active');
+            }, 4000);
+        }
+
+        // 특정 스크린 내부의 폰트 배율 토글 구현 (고령자/전연령 시각 보조성 검증용)
+        let isLargeFont = false;
+        function toggleInDeviceFontSize(screenNum) {
+            const devContent = document.getElementById(`device-content-${screenNum}`);
+            if (isLargeFont) {
+                devContent.classList.remove('large-font-preview');
+                isLargeFont = false;
+            } else {
+                devContent.classList.add('large-font-preview');
+                isLargeFont = true;
+            }
+        }
+
+        // 시뮬레이션용 임시 모달 노출 기조
+        function triggerSimulatedDelete() {
+            const toast = document.getElementById('custom-toast');
+            toast.classList.remove('hidden');
+        }
+
+        function closeSimulatedDelete() {
+            const toast = document.getElementById('custom-toast');
+            toast.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
