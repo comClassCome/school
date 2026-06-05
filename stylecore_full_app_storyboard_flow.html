@@ -51,7 +51,7 @@
             line-height: 1.5 !important;
         }
 
-        /* [개선 완료] 활성 탭 버튼 스타일: 내부의 모든 text 및 아이콘 색상을 진한 네이비로 강제 고정 */
+        /* 활성 탭 버튼 스타일: 내부의 모든 text 및 아이콘 색상을 진한 네이비로 강제 고정 */
         .tab-btn-active, 
         .tab-btn-active span, 
         .tab-btn-active i {
@@ -67,6 +67,35 @@
         .card-active {
             box-shadow: 0 0 25px rgba(197, 168, 128, 0.35);
             border-color: #c5a880 !important;
+        }
+
+        /* 커스텀 슬라이더(range) 스타일 초기화 및 최적화 */
+        .custom-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 9999px;
+            outline: none;
+            cursor: pointer;
+        }
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #0f172a;
+            border: 2px solid #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: transform 0.1s ease;
+        }
+        .custom-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        .custom-slider.slider-emerald::-webkit-slider-thumb {
+            background: #10b981;
         }
     </style>
 </head>
@@ -94,7 +123,7 @@
         </div>
     </header>
 
-    <!-- 2. 핵심 화면 전환용 탭 버튼 스위치 (그리드 레이아웃 개선) -->
+    <!-- 2. 핵심 화면 전환용 탭 버튼 스위치 -->
     <nav class="max-w-7xl mx-auto mb-6">
         <div class="grid grid-cols-2 md:grid-cols-5 gap-2 bg-slate-900/50 p-2 rounded-2xl border border-slate-800">
             <button onclick="switchScreen(1)" id="btn-screen1" class="tab-btn-active py-3 px-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold border border-slate-700 transition-all flex flex-col items-center gap-1">
@@ -113,7 +142,6 @@
                 <span class="text-[9px] opacity-60 font-mono">SCREEN 04</span>
                 <span><i class="fa-solid fa-sliders mr-1"></i> 데이터 통제센터</span>
             </button>
-            <!-- [개선 완료] 5번 탭 배경 활성화 시 텍스트 가독성을 확보하기 위해 text-slate-300 기본 부여 및 유연한 높이 지정 -->
             <button onclick="switchScreen(5)" id="btn-screen5" class="py-3 px-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold border border-slate-700 transition-all flex flex-col items-center justify-center gap-1 col-span-2 md:col-span-1">
                 <span id="btn-screen5-sub" class="text-[9px] font-mono text-brandGold font-bold">ARCH TOPOLOGY</span>
                 <span id="btn-screen5-main" class="text-white"><i class="fa-solid fa-network-wired mr-1"></i> 시스템 설계도</span>
@@ -230,29 +258,6 @@
                         </div>
                         <span class="text-[8px] bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold px-2 py-0.5 rounded-full">친환경 공인인증</span>
                     </div>
-                    <!-- <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm space-y-2 pb-2">
-                        <div class="relative h-[115px] bg-slate-100">
-                            <img src="https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=400&q=80" alt="Shirt" class="w-full h-full object-cover">
-                            <span class="absolute bottom-1.5 right-2 bg-slate-900/90 text-white font-bold text-[8px] px-1.5 py-0.5 rounded">오가닉 100%</span>
-                        </div>
-                        <div class="px-2.5 space-y-1">
-                            <div class="flex justify-between items-center">
-                                <h5 class="font-bold text-slate-900 text-[11px]">프리미엄 클래식 에코 셔츠</h5>
-                                <span class="text-[11px] font-bold text-brandGold font-mono">₩54,000</span>
-                            </div>
-                            <div class="bg-slate-50 border border-slate-100 rounded-lg p-2 space-y-1.5 text-[8px] text-slate-600 font-medium">
-                                <div class="flex justify-between items-center text-slate-500 font-bold border-b border-slate-200/50 pb-1">
-                                    <span><i class="fa-solid fa-magnifying-glass-chart text-[9px] text-brandGold mr-0.5"></i> AI 추천 가중치 분석 결과</span>
-                                    <span class="text-slate-800 text-[9px]">적합도 우수</span>
-                                </div>
-                                <div class="space-y-0.5">
-                                    <div class="flex justify-between"><span>• 골격 보정치 반영 둘레 일치율</span><strong class="text-brandNavy font-mono">92% 일치</strong></div>
-                                    <div class="flex justify-between"><span>• 가치소비 필터 적용 기여도</span><strong class="text-emerald-600 font-mono">50% 반영</strong></div>
-                                    <div class="flex justify-between border-t border-slate-200/40 pt-1 mt-1"><span>• 예측 추천 사이즈</span><strong class="text-brandNavy font-mono">L (반품 예측률 1.1%)</strong></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm space-y-2 pb-2">
                         <div class="relative h-[115px] bg-slate-100">
                             <img src="https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=400&q=80" alt="Shirt" class="w-full h-full object-cover">
@@ -269,8 +274,8 @@
                                     <span class="text-slate-800 text-[9px]">적합도 우수</span>
                                 </div>
                                 <div class="space-y-0.5">
-                                    <div class="flex justify-between"><span>• 골격 보정치 반영 둘레 일치율</span><strong class="text-brandNavy font-mono">92% 일치</strong></div>
-                                    <div class="flex justify-between"><span>• 가치소비 필터 적용 기여도</span><strong class="text-emerald-600 font-mono">50% 반영</strong></div>
+                                    <div class="flex justify-between"><span>• 골격 보정치 반영 둘레 일치율</span><strong id="feed-fit-val" class="text-brandNavy font-mono">92% 일치</strong></div>
+                                    <div class="flex justify-between"><span>• 가치소비 필터 적용 기여도</span><strong id="feed-eco-val" class="text-emerald-600 font-mono">50% 반영</strong></div>
                                     <div class="flex justify-between border-t border-slate-200/40 pt-1 mt-1"><span>• 예측 추천 사이즈</span><strong class="text-brandNavy font-mono">L (반품 예측률 1.1%)</strong></div>
                                 </div>
                             </div>
@@ -299,25 +304,24 @@
                         <h4 class="font-bold text-brandNavy text-xs flex items-center gap-1"><i class="fa-solid fa-sliders text-brandGold"></i> 알고리즘 주권 제어</h4>
                         <p class="text-[8px] text-slate-400 font-medium mt-0.5">인공지능의 편향을 주체적으로 개입하여 조절합니다.</p>
                     </div>
-                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2.5">
-                        <div>
-                            <div class="flex justify-between items-center text-[9px] text-slate-800 font-bold mb-1">
-                                <span>체형 매칭 핏 최우선도</span>
-                                <span class="text-brandNavy font-mono text-[10px]">92%</span>
+                    <!-- [개선 완료] 입력 가능한 실제 수치 조절 Range Slider 컴포넌트 탑재 -->
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-3.5">
+                        <div class="space-y-1">
+                            <div class="flex justify-between items-center text-[9px] text-slate-800 font-bold">
+                                <label for="slider-fit" class="cursor-pointer">체형 매칭 핏 최우선도</label>
+                                <span id="label-fit-val" class="text-brandNavy font-mono text-[10px]">92%</span>
                             </div>
-                            <div class="w-full h-1.5 bg-slate-200 rounded-full relative">
-                                <div class="absolute left-0 top-0 h-full w-[92%] bg-slate-800 rounded-full"></div>
-                                <div class="absolute left-[92%] -top-1 w-3.5 h-3.5 bg-white border-2 border-slate-800 rounded-full shadow-md -translate-x-1/2"></div>
+                            <div class="flex items-center">
+                                <input type="range" id="slider-fit" min="0" max="100" value="92" oninput="updateControlValue('fit', this.value)" class="custom-slider">
                             </div>
                         </div>
-                        <div>
-                            <div class="flex justify-between items-center text-[9px] text-slate-800 font-bold mb-1">
-                                <span>친환경 윤리 브랜드 비중</span>
-                                <span class="text-emerald-600 font-mono text-[10px]">50%</span>
+                        <div class="space-y-1">
+                            <div class="flex justify-between items-center text-[9px] text-slate-800 font-bold">
+                                <label for="slider-eco" class="cursor-pointer">친환경 윤리 브랜드 비중</label>
+                                <span id="label-eco-val" class="text-emerald-600 font-mono text-[10px]">50%</span>
                             </div>
-                            <div class="w-full h-1.5 bg-slate-200 rounded-full relative">
-                                <div class="absolute left-0 top-0 h-full w-[50%] bg-emerald-500 rounded-full"></div>
-                                <div class="absolute left-[50%] -top-1 w-3.5 h-3.5 bg-white border-2 border-emerald-500 rounded-full shadow-md -translate-x-1/2"></div>
+                            <div class="flex items-center">
+                                <input type="range" id="slider-eco" min="0" max="100" value="50" oninput="updateControlValue('eco', this.value)" class="custom-slider slider-emerald">
                             </div>
                         </div>
                     </div>
@@ -395,7 +399,10 @@
                                 <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 space-y-2">
                                     <h5 class="text-xs font-bold text-slate-300"><i class="fa-solid fa-shield-halved text-brandGold mr-1.5"></i> 다목적 매칭 추천 가중 연산식</h5>
                                     <p class="text-[10px] text-slate-500 leading-relaxed">블랙박스를 배제하는 다차원 윤리 알고리즘을 사용해 취향, 보정 피팅 가중치, 브랜드 윤리 등급을 합산하여 최종 매핑합니다.</p>
-                                    <div class="bg-slate-950 p-2 rounded border border-slate-800 text-[9px] font-mono text-brandGold">Score = (w_f*Fit) + (w_e*Eco) - λ*Age</div>
+                                    <!-- [연동 업데이트] 제어센터 실시간 입력 연동 수치화 코드 매핑 바인딩 -->
+                                    <div class="bg-slate-950 p-2 rounded border border-slate-800 text-[9px] font-mono text-brandGold">
+                                        Score = (<span id="math-fit-val">0.92</span>*Fit) + (<span id="math-eco-val">0.50</span>*Eco) - λ*Age
+                                    </div>
                                 </div>
                             </div>
                             <div class="mt-4 p-3 bg-indigo-950/40 rounded-xl border border-indigo-900/40 text-[11px] text-indigo-300 leading-relaxed space-y-1">
@@ -548,6 +555,25 @@
             } else {
                 controlHeader.classList.remove('opacity-100');
                 controlHeader.classList.add('opacity-40');
+            }
+        }
+
+        // [신규 구현] 통제센터 슬라이더 상태 조작 및 실시간 데이터 바인딩 연동 스크립트
+        function updateControlValue(type, value) {
+            if(type === 'fit') {
+                // 제어센터 대시보드 내 인라인 숫자 텍스트 변경
+                document.getElementById('label-fit-val').innerText = value + '%';
+                // 설명가능 추천홈(SCREEN 03)의 가중치 상태 변경
+                document.getElementById('feed-fit-val').innerText = value + '% 일치';
+                // 시스템 설계도(SCREEN 05)의 수식 매칭 데이터 기여치 실시간 동기화
+                document.getElementById('math-fit-val').innerText = (value / 100).toFixed(2);
+            } else if(type === 'eco') {
+                // 제어센터 대시보드 내 인라인 숫자 텍스트 변경
+                document.getElementById('label-eco-val').innerText = value + '%';
+                // 설명가능 추천홈(SCREEN 03)의 가중치 상태 변경
+                document.getElementById('feed-eco-val').innerText = value + '% 반영';
+                // 시스템 설계도(SCREEN 05)의 수식 매칭 데이터 기여치 실시간 동기화
+                document.getElementById('math-eco-val').innerText = (value / 100).toFixed(2);
             }
         }
 
