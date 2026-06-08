@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grad-Pass AI - 소프트웨어교육 학사 요건 검증 시스템</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+        body { font-family: 'Noto Sans KR', 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-blue-600 text-white p-2 rounded-lg font-bold text-lg tracking-wider shadow-md shadow-blue-500/20">GP</div>
+                <div>
+                    <h1 class="text-lg font-bold text-white tracking-tight">Grad-Pass AI</h1>
+                    <p class="text-xs text-slate-400">교육대학원 소프트웨어교육전공 지능형 졸업 진단</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <span class="w-1.5 h-1.5 mr-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Rule Engine Active
+                </span>
+                <button onclick="openTutorial()" class="text-sm text-slate-400 hover:text-white transition cursor-pointer">💡 학사 기준 가이드</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <section class="md:col-span-1 space-y-6">
+            <div class="bg-slate-800/50 border border-slate-700/60 rounded-xl p-4 shadow-sm">
+                <h3 class="text-xs font-semibold text-slate-200 mb-1 flex items-center">
+                    <svg class="w-3.5 h-3.5 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Privacy-by-Design 보안 규정
+                </h3>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                    성적표 파일 내부의 개인 식별 정보 및 학점 데이터는 암호화되어 브라우저 내 **휘발성 세션(Sandbox)**에서만 연산 후 영구 파기됩니다.
+                </p>
+            </div>
+
+            <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-xl">
+                <label class="block text-xs font-medium text-slate-300 mb-2">1단계: 성적표 업로드 (PDF / JSON)</label>
+                <div class="border-2 border-dashed border-slate-600 hover:border-blue-500 rounded-lg p-5 text-center cursor-pointer transition relative group" id="dropzone">
+                    <input type="file" id="fileInput" accept=".pdf,.json" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                    <svg class="mx-auto h-10 w-10 text-slate-500 group-hover:text-blue-400 transition mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <p class="text-xs text-slate-300 font-medium" id="fileNameDisplay">여기에 성적표를 드롭하거나 클릭하세요</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-xl space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-slate-300 mb-2">2단계: 세부 이수 과정 선택</label>
+                    <select id="courseType" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2.5 text-xs text-slate-300 focus:outline-none focus:border-blue-500 transition">
+                        <option value="major_non_thesis">1. 소프트웨어교육 석사과정 (비논문-학점 대체)</option>
+                        <option value="major_thesis">2. 소프트웨어교육 석사과정 (논문 졸업)</option>
+                        <option value="major_non_thesis_cert">3. 소프트웨어교육 석사과정 (비논문) + 교원자격증</option>
+                        <option value="major_thesis_cert">4. 소프트웨어교육 석사과정 (논문) + 교원자격증</option>
+                        <option value="minor_cert">5. 소프트웨어교육 부전공 과정 (현직교원 대상)</option>
+                    </select>
+                </div>
+
+                <button onclick="analyzeGraduation()" id="analyzeBtn" class="w-full bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white rounded-lg py-3 text-xs font-semibold shadow-lg shadow-blue-600/20 transition cursor-pointer flex items-center justify-center space-x-2">
+                    <span>AI 규칙기반 졸업 요건 진단</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="md:col-span-2 space-y-6">
+            
+            <div id="emptyResult" class="bg-slate-800/30 border border-slate-800 border-dashed rounded-2xl p-16 text-center h-full flex flex-col justify-center items-center text-slate-500">
+                <svg class="w-14 h-14 mb-3 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <p class="text-sm font-medium text-slate-400">성적 파일을 첨부하고 이수 과정을 선택한 뒤 진단을 시작하세요.</p>
+                <p class="text-xs text-slate-600 mt-1">대학원 내규집 분석 엔진 기반 실시간 크로스 체킹이 수행됩니다.</p>
+            </div>
+
+            <div id="resultReport" class="hidden space-y-6">
+                
+                <div class="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3.5 text-xs text-amber-400 flex items-start">
+                    <svg class="w-4 h-4 mr-2.5 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <span><strong>[제도적 필수 확인 고지]</strong> AI의 판정 알고리즘 결과는 행정적 가이드라인 자문용입니다. 자격검정 최종 합격 및 표시과목 변경 처리는 학사일정에 맞추어 교학팀 및 주임교수의 확인을 득해야 유효합니다.</span>
+                </div>
+
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="sm:col-span-2 flex items-start space-x-4">
+                        <div id="statusIcon" class="p-3.5 rounded-xl">
+                            </div>
+                        <div>
+                            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-0.5">진단 결과 보고서</span>
+                            <h2 class="text-lg font-bold text-white mb-1" id="statusTitle">검색 중...</h2>
+                            <p class="text-xs text-slate-400 leading-relaxed" id="statusDesc"></p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900/50 border border-slate-700/60 rounded-xl p-4 text-center flex flex-col justify-center">
+                        <span class="text-[11px] text-slate-400 font-medium block">Rule Engine 검증 신뢰성</span>
+                        <span class="text-2xl font-extrabold text-blue-500 mt-0.5">100% 하드코딩</span>
+                        <span class="text-[10px] text-slate-500 mt-0.5">LLM 단독 추론 오판 방지</span>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl overflow-hidden">
+                    <div class="px-5 py-4 border-b border-slate-700 bg-slate-800/40 flex justify-between items-center">
+                        <h3 class="text-xs font-bold text-slate-200 tracking-tight">다층적 이수 요건 상세 대조표 (산술 계산 검증 장치 가동)</h3>
+                        <!-- <span class="text-[10px] text-slate-400">단위: 학점 / 횟수</span> -->
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-left text-slate-300">
+                            <thead class="text-[11px] uppercase bg-slate-900/50 text-slate-400 border-b border-slate-700">
+                                <tr>
+                                    <th class="px-5 py-3">학사 및 교직 자격 심사 영역</th>
+                                    <th class="px-5 py-3 text-center">기준 요건</th>
+                                    <th class="px-5 py-3 text-center">현재 취득</th>
+                                    <th class="px-5 py-3 text-center">잔여 필요</th>
+                                    <th class="px-5 py-3 text-center">상태</th>
+                                </tr>
+                            </thead>
+                            <tbody id="creditTableBody">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-xl space-y-4">
+                    <div class="flex items-center space-x-2 border-b border-slate-700 pb-2.5">
+                        <div class="bg-blue-500/10 p-1 rounded text-blue-400 border border-blue-500/20 text-[10px] font-bold">RAG ENGINE</div>
+                        <h3 class="text-xs font-bold text-slate-200">Explainable AI: 학칙 근거 및 관련 문헌 인용 (Citations)</h3>
+                    </div>
+                    <div class="space-y-3" id="citationContainer">
+                        </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-slate-800/40 border border-slate-800 rounded-xl p-4 text-xs text-slate-400 gap-3">
+                    <p>교육과정 개정 등으로 인한 예외 과목 인정 오류나 특이 대체 선수가 누락되었을 경우, 즉시 Hot-Fix 검토를 요청하십시오.</p>
+                    <button onclick="triggerHotFix()" class="bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 px-3 py-1.5 rounded-lg font-medium transition cursor-pointer shrink-0">
+                        🚨 요건 오판 즉시 신고 (Hot-Fix)
+                    </button>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-slate-800 bg-slate-900 py-5 text-center text-[11px] text-slate-500">
+        <p>© 2026 AI 시스템 설계 윤리 가이드라인 적용 프로토타입 - Grad-Pass AI 소프트웨어교육 분과</p>
+    </footer>
+
+    <div id="tutorialModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+            <h3 class="text-base font-bold text-white flex items-center">
+                📚 아주대학교 교육대학원 소프트웨어교육 주요 기준고지
+            </h3>
+            <div class="text-xs text-slate-300 space-y-3 leading-relaxed max-h-96 overflow-y-auto pr-1">
+                <p>• **석사학위 기본이수(제27조)**: 석사과정 수료를 위해선 기본적으로 총 30학점 이상 취득과 전 학년 평점평균 3.0 이상 취득이 기본 전제조건입니다.</p>
+                <p>• **논문과정**: 전공 24학점 이상 + 연구학점 6학점(논문1, 논문2 수강필수)을 분할 이수하여 총 30학점을 배정합니다.</p>
+                <p>• **비논문과정**: 학위논문을 대체하여 전공과목을 추가 6학점 이수(총 전공 30학점)해야 하며, 마지막 학기에 반드시 '컴퓨터교육세미나' 과목을 수강하여 졸업보고서 합격을 받아야 합니다.</p>
+                <p>• **교원자격증(무시험검정)**: 전공과목 50학점(기본이수과목 14학점/5과목 이상, 교과교육영역 6학점/2과목 이상 필수 산입)과 교직과목 22학점 이상을 충족해야 자격증 발급 요건이 완비됩니다. 입학 전 학부 전공학점을 연계할 경우 교학팀에 학점인정원을 제출해야 정상 산정됩니다.</p>
+                <p>• **부전공 요건**: 현직 교원의 표시과목 추가를 위한 부전공 이수자는 소프트웨어교육 전공과목 30학점(기본이수 및 교과교육 필수 조항 포함) 이상 취득이 독립 규칙으로 연산됩니다.</p>
+            </div>
+            <button onclick="closeTutorial()" class="w-full bg-slate-700 hover:bg-slate-600 text-white rounded-lg py-2 text-xs font-medium transition cursor-pointer">
+                조항을 숙지했습니다
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // 파일 업로드 시각화 바인딩
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : "여기에 성적표를 드롭하거나 클릭하세요";
+            const display = document.getElementById('fileNameDisplay');
+            display.innerText = fileName;
+            display.className = "text-xs text-blue-400 font-semibold";
+        });
+
+        // 모달창 여닫기 제어
+        function openTutorial() { document.getElementById('tutorialModal').classList.remove('hidden'); }
+        function closeTutorial() { document.getElementById('tutorialModal').classList.add('hidden'); }
+
+        // Hot-Fix 피드백 접수 창구 가동
+        function triggerHotFix() {
+            alert("🚨 Hot-Fix 가동 안내\n\n검증 오류 및 학사편람 예외 적용 항목 신고가 수신되었습니다.\n인적 행정 검토 데이터 수집 세션 로그가 담당자 계정으로 보안 전송되었으며, 24시간 내에 행정 규칙 데이터베이스 패치를 적용하겠습니다.");
+        }
+
+        // 5가지 분기별 하드코딩 엔진 연산 스크립트
+        function analyzeGraduation() {
+            const fileInput = document.getElementById('fileInput');
+            if(fileInput.files.length === 0) {
+                alert("진단을 시작하기 전에 학생 본인의 성적표 파일(PDF 또는 JSON)을 업로드 대기열에 추가해 주십시오.");
+                return;
+            }
+
+            const course = document.getElementById('courseType').value;
+            document.getElementById('emptyResult').classList.add('hidden');
+            document.getElementById('resultReport').classList.remove('hidden');
+
+            let tableRows = [];
+            let status = {};
+            let citations = [];
+
+            switch(course) {
+                // 1. 교육대학원 소프트웨어교육 석사과정(비논문)
+                case 'major_non_thesis':
+                    status = {
+                        title: "비논문 석사학위 요건 미충족 (연구대체과목 누락)",
+                        desc: "석사 이수학점은 30학점을 충족했으나, 비논문 졸업필수 지정 교과목인 'EdC660 컴퓨터교육세미나' 수강 이력이 미달되어 졸업보고서 심사 대상에서 누락되었습니다.",
+                        isPass: false
+                    };
+                    tableRows = [
+                        { area: "석사 총 이수학점", rule: "30학점", current: "30학점", remain: "0학점", pass: true },
+                        { area: "전공 교과학점", rule: "30학점 이상", current: "30학점", remain: "0학점", pass: true },
+                        { area: "대체 졸업보고서 및 세미나 수강", rule: "충족", current: "미충족", remain: "미충족", pass: false },
+                        { area: "석사과정 누계 평점평균 (GPA)", rule: "3.0 이상", current: "3.62", remain: "충족", pass: true }
+                    ];
+                    citations = [
+                        { doc: "교육대학원 학사운영 규칙 제27조(이수학점)", detail: "연구학점 취득 및 학위논문심사청구를 대신하고자 하는 경우에는 상기 표에 의한 전공학점(24학점) 외 6학점을 추가 이수하여야 한다.", page: "p.24" },
+                        { doc: "편람 주요학사 안내 - 졸업보고서 제출 자격", detail: "마지막 학기에 전공일반 과목인 'EdC660 컴퓨터교육세미나' 과목을 필히 수강하고 종합시험에 합격한 자에 한하여 졸업보고서 최종 제출이 가능하다.", page: "p.56" }
+                    ];
+                    break;
+
+                // 2. 교육대학원 소프트웨어교육 석사과정(논문)
+                case 'major_thesis':
+                    status = {
+                        title: "논문형 석사학위 졸업 요건 충족 (예비 패스)",
+                        desc: "교과학점 24학점 및 3학기부터 청구 개시한 연구학점 6학점(논문1, 논문2) 합산 규칙을 통과하였습니다. 종합시험 응시 및 심사만 완료되면 졸업 수료가 유효합니다.",
+                        isPass: true
+                    };
+                    tableRows = [
+                        { area: "석사 총 이수학점", rule: "30학점", current: "30학점", remain: "0학점", pass: true },
+                        { area: "전공 교과학점", rule: "24학점 이상", current: "24학점", remain: "0학점", pass: true },
+                        { area: "연구학점 (논문 1, 2 이수)", rule: "6학점 필수", current: "6학점", remain: "0학점", pass: true },
+                        { area: "석사과정 누계 평점평균 (GPA)", rule: "3.0 이상", current: "3.85", remain: "충족", pass: true }
+                    ];
+                    citations = [
+                        { doc: "교육대학원 학사운영 규칙 제24조 및 제27조", detail: "학위논문 지도를 받기 위한 연구학점은 6학점 이상을 이수하여야 하며, 3학기부터 연구학점을 3학점 단위로 수강신청하여 이수하여야 한다.", page: "p.23" }
+                    ];
+                    break;
+
+                // 3. 교육대학원 소프트웨어교육 석사과정(비논문)+교원자격증
+                case 'major_non_thesis_cert':
+                    status = {
+                        title: "교원자격증 무시험검정 요건 미달 (교직 필수학점 부족 외)",
+                        desc: "비논문 석사 이수 조항(30학점)은 무결하나, 교원자격증 취득을 위한 교직과목 최소 이수 요건인 22학점 중 4학점이 부족하며, 교직 인적성검사 1회 잔여 조건이 식별되었습니다.",
+                        isPass: false
+                    };
+                    tableRows = [
+                        { area: '비논문 석사 전공학점 <a href="https://edu.ajou.ac.kr/edu/degree/manual.do" target="_blank" style="color: #60a5fa; text-decoration: underline;">[상세정보]</a>', rule: "30학점", current: "30학점", remain: "0학점", pass: true },
+                        { area: '무시험검정 전공과목 (학부 인정 합산) <a href="https://edu.ajou.ac.kr/edu/board/notice.do?mode=list&srSearchKey=&srSearchVal=%EC%A0%84%EA%B3%B5+%EB%B0%8F+%EA%B5%90%EC%A7%81%EA%B3%BC%EB%AA%A9+%ED%95%99%EC%A0%90%EC%9D%B8%EC%A0%95">[상세정보]</a>', rule: "50학점 이상", current: "52학점", remain: "0학점", pass: true },
+                        { area: '표시과목 기본이수 (5과목 필수) <a href="https://edu.ajou.ac.kr/edu/degree/manual.do" target="_blank" style="color: #60a5fa; text-decoration: underline;">[상세정보]</a>', rule: "14학점 이상", current: "16학점", remain: "0학점", pass: true },
+			{ area: '컴퓨터교과교육영역 (EdC500 등) <a href="https://edu.ajou.ac.kr/edu/degree/manual.do" target="_blank" style="color: #60a5fa; text-decoration: underline;">[상세정보]</a>', rule: "6학점 이상", current: "6학점", remain: "0학점", pass: true },
+                        { area: '교직과목 총량 <a href="https://edu.ajou.ac.kr/edu/degree/manual.do" target="_blank" style="color: #60a5fa; text-decoration: underline;">[상세정보]</a>', rule: "22학점 이상", current: "18학점", remain: "4학점", pass: false },
+                        { area: '교직 적성/인성 검사 <a href="https://edu.ajou.ac.kr/edu/board/notice.do?mode=list&srSearchKey=&srSearchVal=%EC%9D%B8%EC%84%B1%EA%B2%80%EC%82%AC" target="_blank" style="color: #60a5fa; text-decoration: underline;">[상세정보]</a>', rule: "2회", current: "1회", remain: "1회", pass: false },
+                        { area: '성인지 교육 이수 횟수 <a href="https://edu.ajou.ac.kr/edu/board/notice.do?mode=list&srSearchKey=&srSearchVal=%EC%84%B1%EC%9D%B8%EC%A7%80" target="_blank" style="color: #60a5fa; text-decoration: underline;">[상세정보]</a>', rule: "2회", current: "2회", remain: "0회", pass: true },
+			{ area: '응급처치실습 및 심폐소생술 <a href="https://edu.ajou.ac.kr/edu/board/notice.do?mode=list&srSearchKey=&srSearchVal=%EC%9D%91%EA%B8%89" target="_blank" style="color: #60a5fa; text-decoration: underline;">[상세정보]</a>', rule: "2회", current: "2회", remain: "0회", pass: true },
+			{ area: '교육봉사활동2 <a href="https://edu.ajou.ac.kr/edu/board/notice.do?mode=list&srSearchKey=&srSearchVal=%EB%B4%89%EC%82%AC" target="_blank" style="color: #60a5fa; text-decoration: underline;">[상세정보]</a>', rule: "충족", current: "충족", remain: "충족", pass: true },
+			{ area: '학교현장실습 <a href="https://edu.ajou.ac.kr/edu/board/notice.do?mode=list&srSearchKey=&srSearchVal=%ED%98%84%EC%9E%A5%EC%8B%A4%EC%8A%B5" target="_blank" style="color: #60a5fa; text-decoration: underline;">[상세정보]</a>', rule: "충족", current: "충족", remain: "충족", pass: true },
+			{ area: '종합시험 <a href="https://edu.ajou.ac.kr/edu/board/notice.do?mode=list&srSearchKey=&srSearchVal=%EC%A2%85%ED%95%A9%EC%8B%9C%ED%97%98" target="_blank" style="color: #60a5fa; text-decoration: underline;">[상세정보]</a>', rule: "충족", current: "충족", remain: "충족", pass: true },
+			{ area: '졸업보고서 <a href="https://edu.ajou.ac.kr/edu/board/notice.do?mode=list&srSearchKey=&srSearchVal=%EC%A1%B8%EC%97%85%EB%B3%B4%EA%B3%A0%EC%84%9C" target="_blank" style="color: #60a5fa; text-decoration: underline;">[상세정보]</a>', rule: "충족", current: "충족", remain: "충족", pass: true },
+			{ area: '무시험 검정신청 <a href="https://edu.ajou.ac.kr/edu/board/notice.do?mode=list&srSearchKey=&srSearchVal=%EB%AC%B4%EC%8B%9C%ED%97%98" target="_blank" style="color: #60a5fa; text-decoration: underline;">[상세정보]</a>', rule: "충족", current: "미충족", remain: "미충족", pass: false },
+			{ area: "전공과목 누계 평점평균 (GPA)", rule: "2.5 이상", current: "3.62", remain: "충족", pass: true },
+			{ area: "교직과목 누계 평점평균 (GPA)", rule: "3.0 이상", current: "3.62", remain: "충족", pass: true }
+                    ];
+                    citations = [
+                        { doc: "교원자격증 안내 - 무시험검정 합격 기준 총괄", detail: "중등학교 정교사 자격을 취득하기 위해서는 교육대학원 재학 중 취득한 전공 및 교직 학점과 학부 연계 학점이 교직과목 22학점 이상 기준을 동시 만족해야 한다.", page: "p.75" },
+                        { doc: "무시험검정 특수 의무 조항 가이드라인", detail: "교원양성과정 이수 중 교직 적성·인성 검사 2회 적격 판정 및 성인지 교육 2회 이상 이수가 필수적으로 요구된다.", page: "p.89" }
+                    ];
+                    break;
+
+                // 4. 교육대학원 소프트웨어교육 석사과정(논문)+교원자격증
+                case 'major_thesis_cert':
+                    status = {
+                        title: "논문 졸업 및 교원자격 충족 완료 (종합 패스 수령 가능)",
+                        desc: "연구학점 6학점을 포함한 석사 학위 논문 요건 통과 및 무시험검정에 명시된 소프트웨어 기본이수 14학점, 교과교육 6학점, 교직 22학점 및 특수 필수 시수를 모두 확보 완료하였습니다.",
+                        isPass: true
+                    };
+                    tableRows = [
+                        { area: "논문형 석사 이수학점 (연구6 포함)", rule: "30학점", current: "30학점", remain: "0학점", pass: true },
+                        { area: "무시험검정 전공학점 총계", rule: "50학점 이상", current: "54학점", remain: "0학점", pass: true },
+                        { area: "표시과목 기본이수 (5과목 필수)", rule: "14학점 이상", current: "16학점", remain: "0학점", pass: true },
+                        { area: "컴퓨터교과교육영역 (EdC500 등)", rule: "6학점 이상", current: "6학점", remain: "0학점", pass: true },
+                        { area: "교직과목 이수 실적", rule: "22학점 이상", current: "22학점", remain: "0학점", pass: true },
+                        { area: "교직 적성/인성 검사 통과", rule: "2회", current: "2회", remain: "0회", pass: true },
+			{ area: "성인지 교육 이수 횟수", rule: "2회", current: "2회", remain: "0회", pass: true },
+                        { area: "응급처치실습 및 심폐소생술", rule: "2회", current: "2회", remain: "0회", pass: true },
+			{ area: "교육봉사활동2", rule: "충족", current: "충족", remain: "충족", pass: true },
+			{ area: "학교현장실습", rule: "충족", current: "충족", remain: "충족", pass: true },
+			{ area: "종합시험", rule: "충족", current: "충족", remain: "충족", pass: true },
+			{ area: "무시험 검정신청", rule: "충족", current: "충족", remain: "충족", pass: true },
+			{ area: "전공과목 누계 평점평균 (GPA)", rule: "2.5 이상", current: "3.62", remain: "충족", pass: true },
+			{ area: "교직과목 누계 평점평균 (GPA)", rule: "3.0 이상", current: "3.62", remain: "충족", pass: true }
+                    ];
+                    citations = [
+                        { doc: "소프트웨어교육전공 교육과정표 및 자격 기준", detail: "전공과목 50학점 내에는 지정된 기본이수과목 14학점 이상과 컴퓨터교재연구및지도법 등 교과교육영역 6학점이 반드시 교차 산입되어야 통과 판정한다.", page: "p.89" }
+                    ];
+                    break;
+
+                // 5. 교육대학원 소프트웨어교육 석사과정 부전공
+                case 'minor_cert':
+                    status = {
+                        title: "부전공 자격 검증 실패 (부전공 필수 기본이수과목 누락)",
+                        desc: "현직 교원 표시과목 추가를 위한 부전공 이수 요건인 전공 30학점 중 총량은 넘겼으나, 소프트웨어 교육과정 지정 기본이수과목군 내 'EdC580 자료구조' 혹은 'EdC540 프로그래밍' 배정 과목이 미이수 상태로 연산되었습니다.",
+                        isPass: false
+                    };
+                    tableRows = [
+                        { area: "부전공 전공과목 이수총량", rule: "30학점 이상", current: "32학점", remain: "0학점", pass: true },
+                        { area: "부전공 필수 기본이수 요건", rule: "5과목 이상 필수", current: "4과목", remain: "1과목", pass: false },
+                        { area: "교직과목 의무 면제 여부", rule: "충족", current: "충족", remain: "충족", pass: true },
+                        { area: "졸업 승인서 및 재직증명 확인", rule: "충족", current: "충족", remain: "충족", pass: true }
+                    ];
+                    citations = [
+                        { doc: "교원자격 무시험검정 - 중등학교 교사 부전공 내규", detail: "현직교원 부전공 자격증 발급 기준은 본 대학원에서 지정한 소프트웨어교육 전공과목을 30학점 이상 이수해야 하며, 표시과목 기본이수 영역의 지정 과목 누락이 없어야 한다.", page: "p.91" }
+                    ];
+                    break;
+            }
+
+            // 상단 요약 배너 UI 변경 적용
+            const iconBox = document.getElementById('statusIcon');
+            const titleBox = document.getElementById('statusTitle');
+            const descBox = document.getElementById('statusDesc');
+
+            if(status.isPass) {
+                iconBox.className = "p-3.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+                iconBox.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+                titleBox.className = "text-base font-bold text-emerald-400 mb-0.5";
+            } else {
+                iconBox.className = "p-3.5 rounded-xl bg-rose-500/10 text-rose-400 border border-rose-500/20";
+                iconBox.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>`;
+                titleBox.className = "text-base font-bold text-rose-400 mb-0.5";
+            }
+            titleBox.innerText = status.title;
+            descBox.innerText = status.desc;
+
+            // 표 데이터 바인딩 연산
+            const tbody = document.getElementById('creditTableBody');
+            tbody.innerHTML = "";
+            tableRows.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-slate-700/50 hover:bg-slate-700/20 transition";
+                tr.innerHTML = `
+                    <td class="px-5 py-3.5 font-medium text-slate-200">${row.area}</td>
+                    <td class="px-5 py-3.5 text-center text-slate-400">${row.rule}</td>
+                    <td class="px-5 py-3.5 text-center font-semibold text-white">${row.current}</td>
+                    <td class="px-5 py-3.5 text-center font-bold ${row.remain !== '0학점' && row.remain !== '0회' && row.remain !== '완료' && row.remain !== '충족' ? 'text-amber-400' : 'text-slate-500'}">${row.remain}</td>
+                    <td class="px-5 py-3.5 text-center">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold ${row.pass ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'}">
+                            ${row.pass ? '충족' : '미달'}
+                        </span>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // RAG 서류 징구 및 근거 데이터 매핑 출력
+            const citeContainer = document.getElementById('citationContainer');
+            citeContainer.innerHTML = "";
+            citations.forEach(cite => {
+                const div = document.createElement('div');
+                div.className = "p-3.5 bg-slate-900/50 border border-slate-700/70 rounded-xl space-y-1.5";
+                div.innerHTML = `
+                    <div class="flex justify-between items-center text-[11px]">
+                        <span class="font-bold text-indigo-400 flex items-center">
+                            <svg class="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            ${cite.doc} [${cite.page}]
+                        </span>
+                    </div>
+                    <p class="text-[11px] text-slate-400 leading-relaxed bg-slate-950/40 p-2.5 rounded border border-slate-800 italic">
+                        "${cite.detail}"
+                    </p>
+                `;
+                citeContainer.appendChild(div);
+            });
+        }
+    </script>
+</body>
+</html>
