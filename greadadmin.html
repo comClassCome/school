@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - 학칙 규정 통합 관리 시스템</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-200 min-h-screen p-8">
+
+    <main class="max-w-6xl mx-auto space-y-8">
+        <header class="flex justify-between items-center border-b border-slate-800 pb-6">
+            <div>
+                <h1 class="text-2xl font-bold text-white">학칙 규칙 엔진 관리자</h1>
+                <p class="text-sm text-slate-400">학사 행정 엔진 동기화 상태: <span class="text-emerald-400 font-bold">LIVE</span> </p>
+            </div>
+            
+<div id="statusBadge" class="px-4 py-2 bg-slate-900 border border-slate-700 rounded-lg text-xs">최종 수정: 2026-06-07</div>
+<a href="https://comclasscome.github.io/school/greaduser.html" target="_blank"><div id="statusBadge" class="px-4 py-2 bg-slate-900 border border-slate-700 rounded-lg text-xs">사용자페이지</div></a>
+        </header>
+
+        <section class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl">
+            <h2 class="text-sm font-bold mb-4 text-slate-300">규정집(PDF) 파싱</h2>
+            <div class="flex gap-4">
+                <div class="flex-1 border-2 border-dashed border-slate-700 rounded-xl p-6 text-center cursor-pointer" id="dropZone">
+                    <p class="text-xs text-slate-500">규정집 업로드 시 AI가 자동 파라미터를 생성합니다.</p>
+                    <input type="file" id="fileUpload" class="hidden">
+                </div>
+                <button onclick="document.getElementById('fileUpload').click()" class="bg-blue-600 px-6 py-2 rounded-xl text-sm font-bold">파일 선택</button>
+            </div>
+        </section>
+
+        <section class="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden shadow-xl">
+            <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+                <h2 class="text-sm font-bold">상세 졸업 요건 파라미터 (횟수/범위/상태)</h2>
+                <div class="space-x-2">
+                    <button onclick="addNewRule()" class="bg-slate-700 px-4 py-2 rounded-lg text-xs font-bold hover:bg-slate-600">+ 새로운 규칙 추가</button>
+                    <button onclick="confirmRules()" class="bg-emerald-600 px-4 py-2 rounded-lg text-xs font-bold hover:bg-emerald-500">규칙 엔진 확정 및 반영</button>
+                </div>
+            </div>
+            <table class="w-full text-xs text-left">
+                <thead class="bg-slate-950 text-slate-500 uppercase">
+                    <tr>
+                        <th class="px-6 py-3">규칙 항목</th>
+                        <th class="px-6 py-3">유형</th>
+                        <th class="px-6 py-3">설정값 (관리자 승인)</th>
+                        <th class="px-6 py-3">삭제</th>
+                    </tr>
+                </thead>
+                <tbody id="ruleTable" class="divide-y divide-slate-800">
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script>
+        // 규칙 추가 시 동적 입력 폼 생성
+        function addNewRule() {
+            const tbody = document.getElementById('ruleTable');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="px-6 py-4"><input type="text" placeholder="규칙명(예: 봉사활동)" class="bg-slate-800 p-1 w-full rounded border border-slate-700"></td>
+                <td class="px-6 py-4">
+                    <select class="bg-slate-800 p-1 rounded border border-slate-700">
+                        <option value="range">범위 (1~60)</option>
+                        <option value="count">횟수 (0~5회)</option>
+                        <option value="status">상태 (충족/미충족)</option>
+                        <option value="score">학점 (0~4.5)</option>
+                    </select>
+                </td>
+                <td class="px-6 py-4"><input type="text" placeholder="값 입력" class="bg-slate-800 p-1 w-32 rounded border border-slate-700"></td>
+                <td class="px-6 py-4"><button onclick="this.parentElement.parentElement.remove()" class="text-rose-400 font-bold">삭제</button></td>
+            `;
+            tbody.appendChild(tr);
+        }
+
+        // 파일 업로드 시 예시 데이터 출력 (개선판)
+        document.getElementById('fileUpload').addEventListener('change', function(e) {
+            const rules = [
+                { item: "비논문 석사 전공학점", type: "range", value: "32학점" },
+                { item: "무시험검정 전공과목 (학부 인정 합산)", type: "range", value: "14학점" },
+                { item: "표시과목 기본이수 (5과목 필수)", type: "range", value: "52학점" },
+                { item: "컴퓨터교과교육영역 (EdC500 등)", type: "range", value: "6학점" },
+                { item: "교직과목 총량", type: "range", value: "22학점" },
+                { item: "교직 적성/인성 검사 ", type: "count", value: "2회" },
+                { item: "성인지 교육 이수 횟수", type: "count", value: "2회" },
+                { item: "응급처치실습 및 심폐소생술", type: "count", value: "2회" },
+                { item: "교육봉사활동2", type: "status", value: "충족" },
+                { item: "학교현장실습", type: "status", value: "충족" },
+                { item: "종합시험", type: "status", value: "충족" },
+                { item: "졸업보고서", type: "status", value: "충족" },
+                { item: "무시험 검정신청", type: "status", value: "충족" },
+                { item: "전공과목 누계 평점평균", type: "score", value: "2.5" },
+                { item: "교직과목 누계 평점평균", type: "score", value: "3.0" }
+            ];
+            const tbody = document.getElementById('ruleTable');
+            tbody.innerHTML = "";
+            rules.forEach(rule => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="px-6 py-4 font-bold text-slate-300">${rule.item}</td>
+                        <!--<td class="px-6 py-4">${rule.type === 'range' ? '범위(1~52)' : (rule.type === 'count' ? '횟수(0~5)' : '상태(충족/미충족)')}</td>-->
+                        <td class="px-6 py-4">${rule.type === 'range' ? '범위(1~52)' : rule.type === 'count' ? '횟수(0~5)' : rule.type === 'score' ? '학점(0~4.5)' : '상태(충족/미충족)'}</td>
+                        <td class="px-6 py-4"><input type="text" value="${rule.value}" class="bg-slate-800 p-1 w-32 text-center rounded border border-slate-700"></td>
+                        <td class="px-6 py-4 text-slate-500">AI 추출됨</td>
+                    </tr>
+                `;
+            });
+        });
+
+        function confirmRules() {
+            alert("모든 규칙이 시스템에 동기화되었습니다. 사용자 페이지에서 즉시 적용됩니다.");
+            document.getElementById('statusBadge').innerText = "최종 수정: " + new Date().toLocaleString();
+        }
+    </script>
+</body>
+</html>
